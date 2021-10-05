@@ -26,6 +26,7 @@ const QuestionComponent: FC<questionProp> = observer(({ question }) => {
       <Stack spacing={4}>
         {question.options.map((option, i) => (
           <Option
+            key={i}
             option={option}
             answer={answer}
             onClick={handleAnswer}

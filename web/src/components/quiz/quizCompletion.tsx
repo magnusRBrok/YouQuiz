@@ -1,12 +1,4 @@
-import {
-  Box,
-  HStack,
-  Text,
-  VStack,
-  Button,
-  Stack,
-  Center,
-} from "@chakra-ui/react";
+import { Box, Text, Button, Center } from "@chakra-ui/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 

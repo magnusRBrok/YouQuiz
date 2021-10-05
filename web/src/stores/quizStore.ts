@@ -20,15 +20,15 @@ export class QuizStoreImpl {
     });
   }
 
-  addQuiz(quiz: Quiz) {
+  addQuiz(quiz: Quiz): void {
     this.quizes.push(quiz);
   }
 
-  getQuiz(id: number) {
+  getQuiz(id: number): Quiz | undefined {
     return this.quizes.find((quiz) => quiz.id === id);
   }
 
-  newQuizSession(quiz: Quiz) {
+  newQuizSession(quiz: Quiz): void {
     this.quizSession = {
       userId: 1,
       quiz: quiz,
@@ -36,7 +36,7 @@ export class QuizStoreImpl {
     };
   }
 
-  answerQuestion(question: Question, answer: QuestionOption) {
+  answerQuestion(question: Question, answer: QuestionOption): void {
     this.quizSession?.answers.set(question, answer);
   }
 

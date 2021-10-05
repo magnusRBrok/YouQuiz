@@ -1,6 +1,5 @@
 import "./App.css";
-import QuizSelection from "./components/quiz/QuizSelection/quizSelection";
-import { QuizStore } from "./stores/quizStore";
+
 import { FC } from "react";
 import QuizPage from "./pages/QuizPage";
 import NotFoundPage from "./pages/NotFoundPage";

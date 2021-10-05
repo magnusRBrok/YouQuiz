@@ -2,7 +2,7 @@ import { HStack, Text } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 
-const NavBar: FC = ({ children }) => {
+const NavBar: FC = () => {
   return (
     <nav>
       <HStack spacing={5}>

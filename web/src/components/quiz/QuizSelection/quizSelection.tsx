@@ -1,15 +1,7 @@
-import {
-  Box,
-  Center,
-  Heading,
-  List,
-  ListItem,
-  SimpleGrid,
-  Stack,
-} from "@chakra-ui/layout";
+import { Box, Center, Heading, SimpleGrid } from "@chakra-ui/layout";
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
-import { QuizStore, QuizStoreImpl } from "../../../stores/quizStore";
+import { QuizStore } from "../../../stores/quizStore";
 import QuizSelectionItem from "./quizSelectionItem";
 
 const QuizSelection: FC = observer(() => {
@@ -18,23 +10,23 @@ const QuizSelection: FC = observer(() => {
       <Heading>Select a quiz</Heading>
       <SimpleGrid width="full" minChildWidth="240px" spacing="10px">
         {QuizStore.quizes.map((quiz) => (
-          <Center>
-            <QuizSelectionItem key={quiz.id} quiz={quiz} />
+          <Center key={quiz.id}>
+            <QuizSelectionItem quiz={quiz} />
           </Center>
         ))}
         {QuizStore.quizes.map((quiz) => (
-          <Center>
-            <QuizSelectionItem key={quiz.id} quiz={quiz} />
+          <Center key={quiz.id}>
+            <QuizSelectionItem quiz={quiz} />
           </Center>
         ))}
         {QuizStore.quizes.map((quiz) => (
-          <Center>
-            <QuizSelectionItem key={quiz.id} quiz={quiz} />
+          <Center key={quiz.id}>
+            <QuizSelectionItem quiz={quiz} />
           </Center>
         ))}
         {QuizStore.quizes.map((quiz) => (
-          <Center>
-            <QuizSelectionItem key={quiz.id} quiz={quiz} />
+          <Center key={quiz.id}>
+            <QuizSelectionItem quiz={quiz} />
           </Center>
         ))}
       </SimpleGrid>

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, List, ListItem, Stack } from "@chakra-ui/layout";
+import { Box, Heading, List, ListItem, Stack } from "@chakra-ui/layout";
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
 import { Link } from "react-router-dom";

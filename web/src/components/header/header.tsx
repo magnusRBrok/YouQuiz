@@ -5,7 +5,7 @@ import { useColors } from "../../hooks/useColors";
 import ColorModeBtn from "../buttons/colorModeBtn";
 import NavBar from "./navbar";
 
-const Header: FC = ({ children }) => {
+const Header: FC = () => {
   const appName = "YouQuiz";
   const { headerBg } = useColors();
 
