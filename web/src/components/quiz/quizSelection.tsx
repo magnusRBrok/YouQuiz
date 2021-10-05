@@ -1,17 +1,14 @@
 import { Heading, List, ListItem, Stack } from '@chakra-ui/layout';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import { QuizStoreImpl } from '../../stores/quizStore';
+import { QuizStore } from '../../stores/quizStore';
 
-interface Props {
-    quizStore: QuizStoreImpl
-}
 
-const QuizSelection: FC<Props> = observer(({ quizStore }) => {
+const QuizSelection: FC = observer(() => {
 
     return (
         <>
-            {quizStore.quizes.map(quiz => (
+            {QuizStore.quizes.map(quiz => (
                 /* This is just temporary for demonstration. Implement actual templating/layout */
                 <Stack spacing={5} key={quiz.id}>
                     <Heading>{quiz.title}</Heading>

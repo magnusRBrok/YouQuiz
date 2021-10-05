@@ -1,4 +1,5 @@
-import { HStack, Link } from '@chakra-ui/layout';
+import { HStack, Text } from '@chakra-ui/layout';
+import { Link } from 'react-router-dom';
 import { FC } from 'react';
 
 const NavBar: FC = ({ children }) => {
@@ -7,9 +8,9 @@ const NavBar: FC = ({ children }) => {
         <nav>
             <HStack spacing={5}>
                 {/* TODO: Actual navigation links */}
-                <Link>Link</Link>
-                <Link>Link</Link>
-                <Link>Link</Link>
+                <Link to={"/"} ><Text>Home</Text></Link>
+                <Link to={"/quiz"}><Text>Start Quiz</Text></Link>
+                {/* <Link>Link</Link> */}
             </HStack>
         </nav>
     );

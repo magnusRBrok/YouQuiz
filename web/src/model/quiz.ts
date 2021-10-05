@@ -1,10 +1,10 @@
-import Question from "./question";
+import { Question } from "./question";
 
-export default interface Quiz {
-    id:             number,
-    title?:         string,
-    category?:      string,
-    description?:   string,
-    createdBy:      number,  // user ID
-    questions:      Question[]
-}
+export type Quiz = {
+  id: number;
+  title?: string;
+  category?: string;
+  description?: string;
+  createdBy: number; // user ID
+  questions: Question[];
+};

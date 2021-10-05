@@ -1,6 +1,6 @@
-import Answer from "./answer";
+import { QuestionOption } from "./questionOption";
 
-export default interface Question {
-    description:    string,
-    answers:        Answer[]
-}
+export type Question = {
+  description: string;
+  options: QuestionOption[];
+};

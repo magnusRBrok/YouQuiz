@@ -1,18 +1,24 @@
 import './App.css';
-import BasicLayout from './components/layouts/basicLayout';
-import QuizComponent from './components/quiz/quizComponent';
-import QuizSelection from './components/quiz/quizSelection';
-import { QuizStore } from './stores/quizStore';
+import QuizSelection from './components/quiz/QuizSelection/quizSelection';
+import {QuizStore} from './stores/quizStore';
+import {FC} from 'react';
+import QuizPage from './pages/QuizPage'
+import NotFoundPage from './pages/NotFoundPage'
+import HomePage from './pages/HomePage'
+import {HashRouter, Route, Switch} from "react-router-dom";
 
-function App() {
-
-  return (
-    <BasicLayout>
-      {/* router output here. For now, render quizView below */}
-      <QuizSelection quizStore={QuizStore} />
-      <QuizComponent />
-    </BasicLayout>
-  );
+const App: FC = () => {
+    document.title = "YouQuiz"
+    return (
+        <HashRouter>
+            <Switch>
+                <Route exact path="/" component={HomePage}/>
+                <Route exact path="/quiz" component={QuizPage}/>
+                <Route exact path="/quiz/:quizId" component={QuizPage}/>
+                <Route exact component={NotFoundPage}></Route>
+            </Switch>
+        </HashRouter>
+    );
 }
 
 export default App;

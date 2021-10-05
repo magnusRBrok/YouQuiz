@@ -1,28 +1,40 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
-import { FC } from 'react';
+import { Heading, Stack } from "@chakra-ui/react";
+import { observer } from "mobx-react-lite";
+import { FC, useCallback } from "react";
+import { Question } from "../../model/question";
+import { QuestionOption } from "../../model/questionOption";
+import { QuizStore } from "../../stores/quizStore";
 import Option from "./optionComponent";
-import Question from "../../model/question";
 
 interface questionProp {
-    question: Question
+  question: Question;
 }
 
-const QuestionComponent: FC<questionProp> =  ({question}) => {
-    return (
-        <div>
-            <h1>{question.description}</h1>
-            <VStack spacing={5}>
-                {
-                    question.answers.map((answer, i) => (
-                        <Option
-                            answer={answer}
-                            key={i}
-                        />
-                    ))
-                }
-            </VStack>
-        </div>
-    );
-}
+const QuestionComponent: FC<questionProp> = observer(({ question }) => {
+  const answer = QuizStore.quizSession?.answers.get(question);
+
+  const handleAnswer = useCallback(
+    (option: QuestionOption) => {
+      !answer && QuizStore.answerQuestion(question, option);
+    },
+    [question, answer]
+  );
+
+  return (
+    <div>
+      <Heading size="md">{question.description}</Heading>
+      <Stack spacing={4}>
+        {question.options.map((option, i) => (
+          <Option
+            option={option}
+            answer={answer}
+            onClick={handleAnswer}
+            i={i}
+          />
+        ))}
+      </Stack>
+    </div>
+  );
+});
 
 export default QuestionComponent;
