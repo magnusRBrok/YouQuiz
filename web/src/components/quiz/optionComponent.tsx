@@ -37,9 +37,7 @@ const Option: FC<optionProps> = ({ answer, option, onClick, i }) => {
       justifyContent="start"
       onClick={(e) => onClick(option)}
     >
-      <Stack
-          direction={"row"}
-          spacing={6}>
+      <Stack direction={"row"} spacing={6}>
         <Text>{alphabet[i]}</Text>
         <Text>{option.text}</Text>
       </Stack>

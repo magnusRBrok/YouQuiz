@@ -95,95 +95,94 @@ const testQuiz1: Quiz = {
     },
   ],
 };
-  const testQuiz2: Quiz = {
-    id: 2,
-    title: "DevOps quizzen",
-    category: "DevOps",
-    description: "En quiz om DevOps",
-    createdBy: 1,
-    questions: [
-      {
-        description: "Hvilket problem forsøger DevOps at løse?",
-        options: [
-          {
-            text: "Lange deployment cycles",
-            isCorrect: false
-          },
-          {
-            text: "Skrøbelig infrastruktur og applikationskode",
-            isCorrect: false
-          },
-          {
-            text: "Ineffektive eller uddaterede applikationer",
-            isCorrect: false
-          },
-          {
-            text: "Alle ovenstående",
-            isCorrect: true
-          }
-        ]
-      },
-      {
-          description: "nyt spørgsmål",
-          options: [
-              {
-                  text: "test",
-                  isCorrect: false
-              },
-              {
-                  text: "test2",
-                  isCorrect: true
-              }
-          ]
-      }
-    ]
-  }
-  const testQuiz3: Quiz = {
-    id: 3,
-    title: "DevOps quizzen",
-    category: "DevOps",
-    description: "En quiz om DevOps",
-    createdBy: 1,
-    questions: [
-      {
-        description: "Hvilket problem forsøger DevOps at løse?",
-        options: [
-          {
-            text: "Lange deployment cycles",
-            isCorrect: false
-          },
-          {
-            text: "Skrøbelig infrastruktur og applikationskode",
-            isCorrect: false
-          },
-          {
-            text: "Ineffektive eller uddaterede applikationer",
-            isCorrect: false
-          },
-          {
-            text: "Alle ovenstående",
-            isCorrect: true
-          }
-        ]
-      },
-      {
-          description: "nyt spørgsmål",
-          options: [
-              {
-                  text: "test",
-                  isCorrect: false
-              },
-              {
-                  text: "test2",
-                  isCorrect: true
-              }
-          ]
-      }
-    ]
-  }
+const testQuiz2: Quiz = {
+  id: 2,
+  title: "DevOps quizzen",
+  category: "DevOps",
+  description: "En quiz om DevOps",
+  createdBy: 1,
+  questions: [
+    {
+      description: "Hvilket problem forsøger DevOps at løse?",
+      options: [
+        {
+          text: "Lange deployment cycles",
+          isCorrect: false,
+        },
+        {
+          text: "Skrøbelig infrastruktur og applikationskode",
+          isCorrect: false,
+        },
+        {
+          text: "Ineffektive eller uddaterede applikationer",
+          isCorrect: false,
+        },
+        {
+          text: "Alle ovenstående",
+          isCorrect: true,
+        },
+      ],
+    },
+    {
+      description: "nyt spørgsmål",
+      options: [
+        {
+          text: "test",
+          isCorrect: false,
+        },
+        {
+          text: "test2",
+          isCorrect: true,
+        },
+      ],
+    },
+  ],
+};
+const testQuiz3: Quiz = {
+  id: 3,
+  title: "DevOps quizzen",
+  category: "DevOps",
+  description: "En quiz om DevOps",
+  createdBy: 1,
+  questions: [
+    {
+      description: "Hvilket problem forsøger DevOps at løse?",
+      options: [
+        {
+          text: "Lange deployment cycles",
+          isCorrect: false,
+        },
+        {
+          text: "Skrøbelig infrastruktur og applikationskode",
+          isCorrect: false,
+        },
+        {
+          text: "Ineffektive eller uddaterede applikationer",
+          isCorrect: false,
+        },
+        {
+          text: "Alle ovenstående",
+          isCorrect: true,
+        },
+      ],
+    },
+    {
+      description: "nyt spørgsmål",
+      options: [
+        {
+          text: "test",
+          isCorrect: false,
+        },
+        {
+          text: "test2",
+          isCorrect: true,
+        },
+      ],
+    },
+  ],
+};
 
-
-  //Add test quiz to store. Only temporary for mock data.
-  QuizStore.addQuiz(testQuiz1);
-  QuizStore.addQuiz(testQuiz2);
-  QuizStore.addQuiz(testQuiz3);
+//Add test quiz to store. Only temporary for mock data.
+QuizStore.addQuiz(testQuiz1);
+QuizStore.addQuiz(testQuiz2);
+QuizStore.addQuiz(testQuiz3);
