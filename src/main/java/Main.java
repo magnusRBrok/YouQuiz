@@ -23,29 +23,5 @@ public class Main {
 
         tomcat.start();
         tomcat.getServer().await();
-
-        SessionFactory factory;
-        try {
-            factory = new Configuration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-
-        Session session = factory.openSession();
-        Transaction tx = null;
-        String userIdSaved = null;
-        try {
-            tx = session.beginTransaction();
-            DBUser u = new DBUser("test user");
-            userIdSaved = (String) session.save(u);
-            tx.commit();
-        } catch (HibernateException ex) {
-            if (tx != null)
-                tx.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
     }
 }

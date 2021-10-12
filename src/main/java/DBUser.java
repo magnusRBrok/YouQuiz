@@ -17,4 +17,8 @@ public class DBUser {
     public DBUser() {
 
     }
+
+    public String getFirst_name() {
+        return first_name;
+    }
 }
