@@ -27,7 +27,7 @@ public class Quiz {
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable=false)
     private DBUser createdBy;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private Collection<Question> questions;
 
     public Quiz(String title) {

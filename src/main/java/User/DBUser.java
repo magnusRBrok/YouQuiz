@@ -17,7 +17,7 @@ public class DBUser {
     @Column(name = "first_name")
     private String first_name;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
     private Collection<Quiz> quizzes;
 
     public DBUser(String name) {

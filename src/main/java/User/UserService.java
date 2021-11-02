@@ -71,7 +71,6 @@ public class UserService {
             user.addQuiz(quiz);
 
             session.save(user);
-            session.save(quiz);
 
             tx.commit();
 

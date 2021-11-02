@@ -19,7 +19,7 @@ public class Question {
     @JoinColumn(name="quiz_id", referencedColumnName = "id", nullable=false)
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Collection<QuestionOption> options;
 
 
