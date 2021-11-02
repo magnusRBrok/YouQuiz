@@ -17,4 +17,6 @@ WORKDIR /tmp
 COPY --from=MAVEN /tmp/target ./
 COPY --from=REACT /tmp/build ./src/main/webapp/
 
+EXPOSE 8080
+
 CMD ["java", "-jar","/tmp/Heroku01.jar"]
