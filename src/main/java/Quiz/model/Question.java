@@ -25,7 +25,7 @@ public class Question {
     @JsonBackReference
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Collection<QuestionOption> options;
 
@@ -61,10 +61,6 @@ public class Question {
 
     public Collection<QuestionOption> getOptions() {
         return options;
-    }
-
-    public void setOptions(Collection<QuestionOption> options) {
-        this.options = options;
     }
 
     public Question() {

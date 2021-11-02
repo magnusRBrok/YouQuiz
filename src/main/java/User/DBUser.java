@@ -18,7 +18,7 @@ public class DBUser {
     @Column(name = "first_name")
     private String first_name;
 
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Collection<Quiz> quizzes;
 
@@ -52,10 +52,6 @@ public class DBUser {
 
     public Collection<Quiz> getQuizzes() {
         return quizzes;
-    }
-
-    public void setQuizzes(Collection<Quiz> quizzes) {
-        this.quizzes = quizzes;
     }
 
     @Override

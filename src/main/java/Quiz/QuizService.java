@@ -62,6 +62,42 @@ public class QuizService {
         return Response.status(Response.Status.CREATED).entity(quizIdSaved).build();
     }
 
+    @PUT
+    @Consumes("application/json")
+    public Response updateQuiz(@QueryParam("id") int id, QuizIdDto dto) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+
+            Quiz entity = session.get(Quiz.class, id);
+            if (entity == null)
+                return Response.status(Response.Status.NOT_FOUND).build();
+
+            Quiz newQuiz = new ObjectMapper().convertValue(dto, new TypeReference<Quiz>(){});
+
+            entity.setTitle(newQuiz.getTitle());
+            entity.setCategory(newQuiz.getCategory());
+            entity.setDescription(newQuiz.getDescription());
+
+            entity.getQuestions().clear();
+            entity.getQuestions().addAll(newQuiz.getQuestions());
+
+            session.merge(entity);
+
+            tx.commit();
+        } catch (HibernateException ex) {
+            if (tx != null)
+                tx.rollback();
+            ex.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } finally {
+            session.close();
+        }
+
+        return Response.status(Response.Status.OK).entity("Quiz updated").build();
+    }
+
     @DELETE
     @Path("{id}")
     public Response deleteQuiz(@PathParam("id") int id) {

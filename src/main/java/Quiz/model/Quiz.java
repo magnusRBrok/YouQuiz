@@ -32,7 +32,7 @@ public class Quiz {
     @JsonBackReference
     private DBUser createdBy;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Collection<Question> questions;
 
@@ -98,9 +98,5 @@ public class Quiz {
 
     public Collection<Question> getQuestions() {
         return questions;
-    }
-
-    public void setQuestions(Collection<Question> questions) {
-        this.questions = questions;
     }
 }
