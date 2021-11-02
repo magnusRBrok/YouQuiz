@@ -106,80 +106,81 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
             </plugin>
+<!-- Plugin commented out since the below steps are already executed through the Dockerfile -->
             <!-- yarn build -->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.0</version>
+<!--            <plugin>-->
+<!--                <groupId>com.github.eirslett</groupId>-->
+<!--                <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                <version>1.12.0</version>-->
 
-                <configuration>
-                    <nodeVersion>v14.17.6</nodeVersion>
-                    <yarnVersion>v1.22.10</yarnVersion>
-                    <workingDirectory>${basedir}/web</workingDirectory>
-                    <installDirectory>${basedir}/web</installDirectory>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <nodeVersion>v14.17.6</nodeVersion>-->
+<!--                    <yarnVersion>v1.22.10</yarnVersion>-->
+<!--                    <workingDirectory>${basedir}/web</workingDirectory>-->
+<!--                    <installDirectory>${basedir}/web</installDirectory>-->
+<!--                </configuration>-->
 
-                <executions>
-                    <execution>
-                        <id>install-frontend-tools</id>
-                        <goals>
-                            <goal>install-node-and-yarn</goal>
-                        </goals>
-                    </execution>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>install-frontend-tools</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install-node-and-yarn</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>yarn-install</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>yarn-install</id>-->
+<!--                        <goals>-->
+<!--                            <goal>yarn</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <arguments>install</arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>build-frontend</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <arguments>build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                    <execution>-->
+<!--                        <id>build-frontend</id>-->
+<!--                        <goals>-->
+<!--                            <goal>yarn</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <configuration>-->
+<!--                            <arguments>build</arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!-- Copy into Tomcat folder -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/src/main/webapp</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/web/build</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
+<!--            <plugin>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>2.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-resources</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${basedir}/src/main/webapp</outputDirectory>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <directory>${basedir}/web/build</directory>-->
+<!--                                    <filtering>true</filtering>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
 
-                    </execution>
-                </executions>
-                <configuration>
-                    <nonFilteredFileExtensions>
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <nonFilteredFileExtensions>-->
 
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
+<!--                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>-->
+<!--                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>-->
+<!--                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>-->
+<!--                    </nonFilteredFileExtensions>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <!-- Compile with dependencies -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
