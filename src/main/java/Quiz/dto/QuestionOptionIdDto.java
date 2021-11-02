@@ -2,7 +2,7 @@ package Quiz.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionOptionIdDto {
     private int id;
     private String text;
