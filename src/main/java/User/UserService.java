@@ -64,39 +64,14 @@ public class UserService {
             DBUser user = null;
             user = session.get(DBUser.class, 2);
 
-            Quiz quiz = new Quiz("test quiz");
-            quiz.setDescription("test description");
-            quiz.setCategory("test category");
+            Quiz quiz = new Quiz("test quiz", "test description", "test category", user)
+                    .addQuestion(new Question("What is bla bla?").addOption(new QuestionOption("wrong", false)).addOption(new QuestionOption("right", true)))
+                    .addQuestion(new Question("Once again, what is bla bla?").addOption(new QuestionOption("wrong again", false)).addOption(new QuestionOption("right again", true)));
+
             quiz.setCreatedBy(user);
-
-            Question q1 = new Question();
-            q1.setDescription("What is bla bla bla?");
-            q1.setQuiz(quiz);
-
-            QuestionOption answer1 = new QuestionOption();
-            answer1.setText("wrong answer");
-            answer1.setCorrect(false);
-            answer1.setQuestion(q1);
-
-            QuestionOption answer2 = new QuestionOption();
-            answer2.setText("right answer");
-            answer2.setCorrect(true);
-            answer2.setQuestion(q1);
-
-            Set<QuestionOption> options = new HashSet<QuestionOption>();
-            options.add(answer1);
-            options.add(answer2);
-            q1.setOptions(options);
-
-            Set<Question> questions = new HashSet<Question>();
-            questions.add(q1);
-            quiz.setQuestions(questions);
 
             session.save(user);
             session.save(quiz);
-            session.save(q1);
-            session.save(answer1);
-            session.save(answer2);
 
             tx.commit();
 

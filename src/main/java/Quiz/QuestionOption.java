@@ -24,6 +24,11 @@ public class QuestionOption {
 
     }
 
+    public QuestionOption(String text, boolean isCorrect) {
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
     public int getId() {
         return id;
     }

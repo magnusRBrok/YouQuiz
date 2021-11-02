@@ -3,7 +3,8 @@ package Quiz;
 import User.DBUser;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "QUIZ")
@@ -27,14 +28,30 @@ public class Quiz {
     private DBUser createdBy;
 
     @OneToMany(mappedBy = "quiz")
-    private Set<Question> questions;
+    private Collection<Question> questions;
 
     public Quiz(String title) {
         this.title = title;
     }
 
+    public Quiz(String title, String category, String description, DBUser createdBy) {
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.createdBy = createdBy;
+    }
+
     public Quiz() {
 
+    }
+
+    public Quiz addQuestion(Question question) {
+        if(this.questions == null) {
+            this.questions = new ArrayList<Question>();
+        }
+        this.questions.add(question);
+        question.setQuiz(this);
+        return this;
     }
 
     public int getId() {
@@ -73,11 +90,11 @@ public class Quiz {
         this.createdBy = createdBy;
     }
 
-    public Set<Question> getQuestions() {
+    public Collection<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(Collection<Question> questions) {
         this.questions = questions;
     }
 }

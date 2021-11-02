@@ -1,7 +1,8 @@
 package Quiz;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "QUESTION")
@@ -19,7 +20,17 @@ public class Question {
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question")
-    private Set<QuestionOption> options;
+    private Collection<QuestionOption> options;
+
+
+    public Question addOption(QuestionOption option) {
+        if(this.options == null) {
+            this.options = new ArrayList<QuestionOption>();
+        }
+        this.options.add(option);
+        option.setQuestion(this);
+        return this;
+    }
 
     public String getDescription() {
         return description;
@@ -37,15 +48,18 @@ public class Question {
         this.quiz = quiz;
     }
 
-    public Set<QuestionOption> getOptions() {
+    public Collection<QuestionOption> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<QuestionOption> options) {
+    public void setOptions(Collection<QuestionOption> options) {
         this.options = options;
     }
 
     public Question() {
+    }
 
+    public Question(String description) {
+        this.description = description;
     }
 }
