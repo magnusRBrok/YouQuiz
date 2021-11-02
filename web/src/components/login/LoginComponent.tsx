@@ -1,4 +1,5 @@
-import { Box, Heading, Link, Text } from "@chakra-ui/layout";
+import { Box, Heading, Text } from "@chakra-ui/layout";
+import { Link } from "react-router-dom";
 import { FC } from "react";
 import { LoginCard } from "./LoginCard";
 
@@ -18,9 +19,7 @@ export const LoginComponent: FC = () => {
           fontWeight="medium"
         >
           <Text as="span">Don&apos;t have an account? </Text>
-          <Link color="blue.500" href="/signup">
-            Sign up!
-          </Link>
+          <Link to={"/signup"}>Sign up!</Link>
         </Text>
       </Box>
       <LoginCard />
