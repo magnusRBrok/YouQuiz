@@ -11,7 +11,7 @@ public class QuestionOption {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name="question_id", referencedColumnName = "id", nullable=false)
     private Question question;
 
     @Column(name = "text")

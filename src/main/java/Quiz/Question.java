@@ -15,15 +15,11 @@ public class Question {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
-    private Question question;
+    @JoinColumn(name="quiz_id", referencedColumnName = "id", nullable=false)
+    private Quiz quiz;
 
     @OneToMany(mappedBy = "question")
     private Set<QuestionOption> options;
-
-    public int getId() {
-        return id;
-    }
 
     public String getDescription() {
         return description;
@@ -31,6 +27,14 @@ public class Question {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     public Set<QuestionOption> getOptions() {

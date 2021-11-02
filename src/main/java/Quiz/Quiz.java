@@ -23,7 +23,7 @@ public class Quiz {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable=false)
     private DBUser createdBy;
 
     @OneToMany(mappedBy = "quiz")

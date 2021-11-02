@@ -46,4 +46,13 @@ public class DBUser {
     public void setQuizzes(Set<Quiz> quizzes) {
         this.quizzes = quizzes;
     }
+
+    @Override
+    public String toString() {
+        return "DBUser{" +
+                "id=" + id +
+                ", first_name='" + first_name + '\'' +
+                ", quizzes=" + quizzes +
+                '}';
+    }
 }
