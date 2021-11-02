@@ -68,7 +68,7 @@ public class UserService {
                     .addQuestion(new Question("What is bla bla?").addOption(new QuestionOption("wrong", false)).addOption(new QuestionOption("right", true)))
                     .addQuestion(new Question("Once again, what is bla bla?").addOption(new QuestionOption("wrong again", false)).addOption(new QuestionOption("right again", true)));
 
-            quiz.setCreatedBy(user);
+            user.addQuiz(quiz);
 
             session.save(user);
             session.save(quiz);

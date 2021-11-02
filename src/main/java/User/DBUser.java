@@ -3,6 +3,7 @@ package User;
 import Quiz.Quiz;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -24,7 +25,15 @@ public class DBUser {
     }
 
     public DBUser() {
+    }
 
+    public DBUser addQuiz(Quiz quiz) {
+        if(this.quizzes == null) {
+            this.quizzes = new ArrayList<Quiz>();
+        }
+        this.quizzes.add(quiz);
+        quiz.setCreatedBy(this);
+        return this;
     }
 
     public int getId() {
