@@ -1,3 +1,6 @@
+package User;
+
+import Util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -6,7 +9,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 @Path("test")
-public class TestService {
+public class UserService {
+
+    //TODO: Implement
 
     @GET
     public String getTest(){

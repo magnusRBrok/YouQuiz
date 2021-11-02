@@ -34,7 +34,10 @@
         <!-- <property name="hibernate.hbm2ddl.auto">update</property>-->
 
         <!-- Persistent classes - remember to update -->
-        <mapping class="DBUser"/>
+        <mapping class="User.DBUser"/>
+        <mapping class="Quiz.Quiz"/>
+        <mapping class="Quiz.Question"/>
+        <mapping class="Quiz.QuestionOption"/>
 
     </session-factory>
 </hibernate-configuration>
