@@ -1,6 +1,8 @@
 package User;
 
-import Quiz.*;
+import Quiz.model.Question;
+import Quiz.model.QuestionOption;
+import Quiz.model.Quiz;
 import Util.HibernateUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +23,10 @@ public class UserService {
     public Response getUser(@PathParam("id") int id){
         Session session = HibernateUtil.getSession();
         DBUser user = session.get(DBUser.class, id);
+
+        if (user == null)
+            return Response.status(Response.Status.NOT_FOUND).build();
+
         DBUserDto dto = new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){});
         session.close();
         return Response.status(Response.Status.OK).entity(dto).build();
@@ -28,7 +34,7 @@ public class UserService {
 
     @POST
     @Consumes("application/json")
-    public int createUser(DBUserDto dto){
+    public Response createUser(DBUserDto dto){
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         int userIdSaved = -1;
@@ -42,11 +48,12 @@ public class UserService {
             if (tx != null)
                 tx.rollback();
             ex.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } finally {
             session.close();
         }
 
-        return userIdSaved;
+        return Response.status(Response.Status.CREATED).entity(userIdSaved).build();
     }
 
     @DELETE
@@ -57,6 +64,10 @@ public class UserService {
         try {
             tx = session.beginTransaction();
             DBUser user = session.load(DBUser.class, id);
+
+            if (user == null)
+                return Response.status(Response.Status.NOT_FOUND).build();
+
             session.delete(user);
             tx.commit();
         } catch (HibernateException ex) {

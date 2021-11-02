@@ -1,10 +1,9 @@
 package User;
 
-import Quiz.Quiz;
+import Quiz.model.Quiz;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -1,9 +1,9 @@
-package Quiz;
+package Quiz.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class QuestionOptionDto {
+//@JsonIgnoreProperties(ignoreUnknown = true)
+public class QuestionOptionIdDto {
     private int id;
     private String text;
     private boolean isCorrect;

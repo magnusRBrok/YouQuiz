@@ -1,7 +1,8 @@
-package Quiz;
+package Quiz.model;
 
 import User.DBUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "QUIZ")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Quiz {
     @Id
     @GeneratedValue

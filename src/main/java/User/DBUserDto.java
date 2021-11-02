@@ -1,9 +1,8 @@
 package User;
 
-import Quiz.Quiz;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import Quiz.QuizDto;
+import Quiz.dto.QuizIdDto;
 import java.util.Collection;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,7 +10,7 @@ public class DBUserDto {
 
     private int id;
     private String first_name;
-    private Collection<QuizDto> quizzes;
+    private Collection<QuizIdDto> quizzes;
 
     public int getId() {
         return id;
@@ -29,11 +28,11 @@ public class DBUserDto {
         this.first_name = first_name;
     }
 
-    public Collection<QuizDto> getQuizzes() {
+    public Collection<QuizIdDto> getQuizzes() {
         return quizzes;
     }
 
-    public void setQuizzes(Collection<QuizDto> quizzes) {
+    public void setQuizzes(Collection<QuizIdDto> quizzes) {
         this.quizzes = quizzes;
     }
 

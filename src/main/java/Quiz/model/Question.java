@@ -1,6 +1,7 @@
-package Quiz;
+package Quiz.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "QUESTION")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Question {
     @Id
     @GeneratedValue
@@ -35,6 +37,10 @@ public class Question {
         this.options.add(option);
         option.setQuestion(this);
         return this;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getDescription() {

@@ -35,9 +35,9 @@
 
         <!-- Persistent classes - remember to update -->
         <mapping class="User.DBUser"/>
-        <mapping class="Quiz.Quiz"/>
-        <mapping class="Quiz.Question"/>
-        <mapping class="Quiz.QuestionOption"/>
+        <mapping class="Quiz.model.Quiz"/>
+        <mapping class="Quiz.model.Question"/>
+        <mapping class="Quiz.model.QuestionOption"/>
 
     </session-factory>
 </hibernate-configuration>

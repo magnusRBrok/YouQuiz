@@ -1,11 +1,13 @@
-package Quiz;
+package Quiz.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "QUESTION_OPTION")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionOption {
     @Id
     @GeneratedValue
