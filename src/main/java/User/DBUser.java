@@ -1,8 +1,10 @@
 package User;
 
 import Quiz.Quiz;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -18,6 +20,7 @@ public class DBUser {
     private String first_name;
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Collection<Quiz> quizzes;
 
     public DBUser(String name) {

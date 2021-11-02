@@ -1,5 +1,8 @@
 package Quiz;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,9 +20,11 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name="quiz_id", referencedColumnName = "id", nullable=false)
+    @JsonBackReference
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Collection<QuestionOption> options;
 
 

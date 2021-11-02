@@ -1,5 +1,7 @@
 package Quiz;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class QuestionOption {
 
     @ManyToOne
     @JoinColumn(name="question_id", referencedColumnName = "id", nullable=false)
+    @JsonBackReference
     private Question question;
 
     @Column(name = "text")

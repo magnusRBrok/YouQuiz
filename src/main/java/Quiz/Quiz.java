@@ -1,6 +1,8 @@
 package Quiz;
 
 import User.DBUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,9 +27,11 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable=false)
+    @JsonBackReference
     private DBUser createdBy;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Collection<Question> questions;
 
     public Quiz(String title) {
