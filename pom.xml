@@ -97,6 +97,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.7.Final</version> <!-- 6.1.7.Final -->
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
     </dependencies>
 
     <build>
