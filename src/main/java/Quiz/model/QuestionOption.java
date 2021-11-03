@@ -2,13 +2,14 @@ package Quiz.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "QUESTION_OPTION")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class QuestionOption {
+public @Data class QuestionOption {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -32,33 +33,5 @@ public class QuestionOption {
     public QuestionOption(String text, boolean isCorrect) {
         this.text = text;
         this.isCorrect = isCorrect;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public boolean isCorrect() {
-        return isCorrect;
-    }
-
-    public void setCorrect(boolean correct) {
-        isCorrect = correct;
     }
 }

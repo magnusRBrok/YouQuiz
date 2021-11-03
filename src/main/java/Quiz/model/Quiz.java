@@ -4,6 +4,7 @@ import User.DBUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "QUIZ")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Quiz {
+public @Data class Quiz {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -48,45 +49,5 @@ public class Quiz {
 
     public Quiz() {
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public DBUser getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(DBUser createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Collection<Question> getQuestions() {
-        return questions;
     }
 }
