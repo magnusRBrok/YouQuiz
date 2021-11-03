@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -49,15 +48,6 @@ public class Quiz {
 
     public Quiz() {
 
-    }
-
-    public Quiz addQuestion(Question question) {
-        if(this.questions == null) {
-            this.questions = new ArrayList<Question>();
-        }
-        this.questions.add(question);
-        question.setQuiz(this);
-        return this;
     }
 
     public int getId() {

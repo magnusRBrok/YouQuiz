@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -28,16 +27,6 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Collection<QuestionOption> options;
-
-
-    public Question addOption(QuestionOption option) {
-        if(this.options == null) {
-            this.options = new ArrayList<QuestionOption>();
-        }
-        this.options.add(option);
-        option.setQuestion(this);
-        return this;
-    }
 
     public int getId() {
         return id;

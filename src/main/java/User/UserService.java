@@ -81,41 +81,4 @@ public class UserService {
 
         return Response.status(Response.Status.OK).build();
     }
-
-    //TODO: This should me removed. Only temporary for testing
-    @GET()
-    @Path("test3")
-    public String getTest3(){
-        Session session = HibernateUtil.getSession();
-        Transaction tx = null;
-
-        try {
-            tx = session.beginTransaction();
-
-            DBUser user = null;
-            user = session.get(DBUser.class, 42);
-
-            Quiz quiz = new Quiz("test quiz", "test description", "test category", user)
-                    .addQuestion(new Question("What is bla bla?").addOption(new QuestionOption("wrong", false)).addOption(new QuestionOption("right", true)))
-                    .addQuestion(new Question("Once again, what is bla bla?").addOption(new QuestionOption("wrong again", false)).addOption(new QuestionOption("right again", true)));
-
-            user.addQuiz(quiz);
-
-            session.save(user);
-
-            tx.commit();
-
-            System.out.println(user);
-
-        } catch (HibernateException ex) {
-            if (tx != null)
-                tx.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return "succes?";
-    }
-
 }
