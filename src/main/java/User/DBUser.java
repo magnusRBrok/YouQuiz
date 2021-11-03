@@ -18,7 +18,7 @@ public class DBUser {
     @Column(name = "first_name")
     private String first_name;
 
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<Quiz> quizzes;
 
