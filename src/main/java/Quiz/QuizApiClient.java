@@ -2,6 +2,7 @@ package Quiz;
 
 import lombok.Data;
 
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
@@ -20,7 +21,7 @@ public class QuizApiClient {
      *
      * @return String
      */
-    public String getQuiz() {
+    public String getQuiz() throws ClientErrorException {
         return client
                 .target(URL)
                 .request(MediaType.APPLICATION_JSON)
@@ -29,6 +30,5 @@ public class QuizApiClient {
                 .readEntity(String.class);
 
         // TODO: Do entity mapping
-        // TODO: Error handling
     }
 }

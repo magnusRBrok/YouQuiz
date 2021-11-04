@@ -3,6 +3,7 @@ package Quiz;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 class QuizApiClientTest {
@@ -40,19 +42,29 @@ class QuizApiClientTest {
         when(invocationBuilderMock.header(anyString(), anyString())).thenReturn(invocationBuilderMock);
         when(invocationBuilderMock.get()).thenReturn(responseMock);
 
-        // TODO: find better solution than casting...
-        when(responseMock.readEntity((Class<Object>) any())).thenReturn("Hello there");
-
         quizApiClient = new QuizApiClient();
         quizApiClient.setClient(clientMock);
     }
 
     @Test
+    public void getQuizParamsTest() {
+        quizApiClient.getQuiz();
+
+        verify(clientMock, times(1)).target("https://quizapi.io/api/v1/questions");
+        verify(webTargetMock, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(invocationBuilderMock,times(1)).header(eq("X-Api-Key"), anyString());
+        verify(invocationBuilderMock, times(1)).get();
+        verify(responseMock, times(1)).readEntity(String.class);
+    }
+
+    @Test
     public void getQuizTest() {
+        // TODO: find better solution than casting...
+        when(responseMock.readEntity((Class<Object>) any())).thenReturn("Hello there");
+
         String string = quizApiClient.getQuiz();
 
         assertEquals("Hello there", string);
-
     }
   
 }
