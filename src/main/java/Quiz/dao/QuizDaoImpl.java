@@ -2,6 +2,7 @@ package Quiz.dao;
 
 import Quiz.model.Quiz;
 import User.DBUser;
+import Util.DAObase;
 import Util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,7 +11,7 @@ import org.hibernate.Transaction;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 
-public class QuizDaoImpl implements IQuizDAO {
+public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
     public Quiz getQuiz(int id) {
         try (Session session = HibernateUtil.getSession()) {
@@ -93,20 +94,6 @@ public class QuizDaoImpl implements IQuizDAO {
             quiz.getCreatedBy().getQuizzes().remove(quiz);
             quiz.setCreatedBy(null);
             session.delete(quiz);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null)
-                tx.rollback();
-            e.printStackTrace();
-            throw new InternalServerErrorException();
-        }
-    }
-
-    public void executeQuery(String sql) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSession()) {
-            tx = session.beginTransaction();
-            session.createSQLQuery(sql).executeUpdate();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null)

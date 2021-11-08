@@ -3,7 +3,6 @@ package User;
 import Quiz.model.Quiz;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ class DBUser {
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private Collection<Quiz> quizzes;
+    private Collection<Quiz> quizzes = new ArrayList<>();
 
     public DBUser(String name) {
         this.first_name = name;

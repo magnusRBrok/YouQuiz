@@ -19,7 +19,7 @@ class QuizDaoImplTest {
 
     @BeforeEach
     void setUp() {
-        //TODO: It's probably very wrong to use the DAO class here to seed the data before testing the DAO class.
+        //TODO: It's probably very wrong to use the DAO classes here to seed the data before testing the DAO class.
         //But for now, it seems to solve the issues of dealing with auto incrementing id's between tests.
         userDAO.addUser(new DBUser("test user 1"));
         userDAO.addUser(new DBUser("test user 2"));
