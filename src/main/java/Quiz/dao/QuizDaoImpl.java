@@ -1,6 +1,7 @@
 package Quiz.dao;
 
 import Quiz.model.Quiz;
+import User.DBUser;
 import Util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -26,10 +27,18 @@ public class QuizDaoImpl implements IQuizDAO {
     }
 
     @Override
-    public int addQuiz(Quiz quiz) {
+    public int addQuiz(Quiz quiz, int userId) {
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSession()) {
+        Session session = HibernateUtil.getSession();
+        try {
             tx = session.beginTransaction();
+
+            DBUser user = session.get(DBUser.class, userId);
+            if (user == null)
+                throw new NotFoundException("User id not found. Id: " + userId);
+
+            quiz.setCreatedBy(user);
+
             int id = (int) session.save(quiz);
             tx.commit();
             return id;
@@ -37,6 +46,8 @@ public class QuizDaoImpl implements IQuizDAO {
             if (tx != null)
                 tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return -1;
     }
@@ -74,12 +85,28 @@ public class QuizDaoImpl implements IQuizDAO {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            Quiz quiz = session.load(Quiz.class, id);
+            Quiz quiz = session.get(Quiz.class, id);
 
             if (quiz == null)
                 throw new NotFoundException("Quiz not found. Id: " + id);
 
+            quiz.getCreatedBy().getQuizzes().remove(quiz);
+            quiz.setCreatedBy(null);
             session.delete(quiz);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+            throw new InternalServerErrorException();
+        }
+    }
+
+    public void executeQuery(String sql) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+            session.createSQLQuery(sql).executeUpdate();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null)
