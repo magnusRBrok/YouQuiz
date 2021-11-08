@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect"> org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="hibernate.connection.driver_class"> org.postgresql.Driver</property>
+        <property name="hibernate.connection.username">postgres</property> <property name="hibernate.connection.password">12345</property> <property name="hibernate.connection.url"> jdbc:postgresql://localhost:5432/hibernatedb</property>
+
+        <!-- Outputs the SQL queries, should be disabled in production -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Statistics to analyze performance, turn off in production -->
+        <property name="hibernate.generate_statistics">false</property>
+
+        <!-- Choose between connection pool or development, use pool in production -->
+
+        <!--
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="connection.pool_size">1</property>
+        -->
+
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+
+        <!-- Auto create empty schema on every application start, DISABLE in production -->
+        <!-- READ https://docs.jboss.org/hibernate/orm/5.0/manual/en-US/html/ch03.html for values -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Just update schema with changes on application start, DISABLE in production-->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property>-->
+
+        <!-- Persistent classes - remember to update -->
+        <mapping class="User.DBUser"/>
+        <mapping class="Quiz.model.Quiz"/>
+        <mapping class="Quiz.model.Question"/>
+        <mapping class="Quiz.model.QuestionOption"/>
+
+    </session-factory>
+</hibernate-configuration>
