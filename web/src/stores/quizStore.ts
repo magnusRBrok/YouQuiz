@@ -20,15 +20,15 @@ export class QuizStoreImpl {
     });
   }
 
-  addQuiz(quiz: Quiz) {
+  addQuiz(quiz: Quiz): void {
     this.quizes.push(quiz);
   }
 
-  getQuiz(id: number) {
+  getQuiz(id: number): Quiz | undefined {
     return this.quizes.find((quiz) => quiz.id === id);
   }
 
-  newQuizSession(quiz: Quiz) {
+  newQuizSession(quiz: Quiz): void {
     this.quizSession = {
       userId: 1,
       quiz: quiz,
@@ -36,7 +36,7 @@ export class QuizStoreImpl {
     };
   }
 
-  answerQuestion(question: Question, answer: QuestionOption) {
+  answerQuestion(question: Question, answer: QuestionOption): void {
     this.quizSession?.answers.set(question, answer);
   }
 
@@ -95,95 +95,94 @@ const testQuiz1: Quiz = {
     },
   ],
 };
-  const testQuiz2: Quiz = {
-    id: 2,
-    title: "DevOps quizzen",
-    category: "DevOps",
-    description: "En quiz om DevOps",
-    createdBy: 1,
-    questions: [
-      {
-        description: "Hvilket problem forsøger DevOps at løse?",
-        options: [
-          {
-            text: "Lange deployment cycles",
-            isCorrect: false
-          },
-          {
-            text: "Skrøbelig infrastruktur og applikationskode",
-            isCorrect: false
-          },
-          {
-            text: "Ineffektive eller uddaterede applikationer",
-            isCorrect: false
-          },
-          {
-            text: "Alle ovenstående",
-            isCorrect: true
-          }
-        ]
-      },
-      {
-          description: "nyt spørgsmål",
-          options: [
-              {
-                  text: "test",
-                  isCorrect: false
-              },
-              {
-                  text: "test2",
-                  isCorrect: true
-              }
-          ]
-      }
-    ]
-  }
-  const testQuiz3: Quiz = {
-    id: 3,
-    title: "DevOps quizzen",
-    category: "DevOps",
-    description: "En quiz om DevOps",
-    createdBy: 1,
-    questions: [
-      {
-        description: "Hvilket problem forsøger DevOps at løse?",
-        options: [
-          {
-            text: "Lange deployment cycles",
-            isCorrect: false
-          },
-          {
-            text: "Skrøbelig infrastruktur og applikationskode",
-            isCorrect: false
-          },
-          {
-            text: "Ineffektive eller uddaterede applikationer",
-            isCorrect: false
-          },
-          {
-            text: "Alle ovenstående",
-            isCorrect: true
-          }
-        ]
-      },
-      {
-          description: "nyt spørgsmål",
-          options: [
-              {
-                  text: "test",
-                  isCorrect: false
-              },
-              {
-                  text: "test2",
-                  isCorrect: true
-              }
-          ]
-      }
-    ]
-  }
+const testQuiz2: Quiz = {
+  id: 2,
+  title: "DevOps quizzen",
+  category: "DevOps",
+  description: "En quiz om DevOps",
+  createdBy: 1,
+  questions: [
+    {
+      description: "Hvilket problem forsøger DevOps at løse?",
+      options: [
+        {
+          text: "Lange deployment cycles",
+          isCorrect: false,
+        },
+        {
+          text: "Skrøbelig infrastruktur og applikationskode",
+          isCorrect: false,
+        },
+        {
+          text: "Ineffektive eller uddaterede applikationer",
+          isCorrect: false,
+        },
+        {
+          text: "Alle ovenstående",
+          isCorrect: true,
+        },
+      ],
+    },
+    {
+      description: "nyt spørgsmål",
+      options: [
+        {
+          text: "test",
+          isCorrect: false,
+        },
+        {
+          text: "test2",
+          isCorrect: true,
+        },
+      ],
+    },
+  ],
+};
+const testQuiz3: Quiz = {
+  id: 3,
+  title: "DevOps quizzen",
+  category: "DevOps",
+  description: "En quiz om DevOps",
+  createdBy: 1,
+  questions: [
+    {
+      description: "Hvilket problem forsøger DevOps at løse?",
+      options: [
+        {
+          text: "Lange deployment cycles",
+          isCorrect: false,
+        },
+        {
+          text: "Skrøbelig infrastruktur og applikationskode",
+          isCorrect: false,
+        },
+        {
+          text: "Ineffektive eller uddaterede applikationer",
+          isCorrect: false,
+        },
+        {
+          text: "Alle ovenstående",
+          isCorrect: true,
+        },
+      ],
+    },
+    {
+      description: "nyt spørgsmål",
+      options: [
+        {
+          text: "test",
+          isCorrect: false,
+        },
+        {
+          text: "test2",
+          isCorrect: true,
+        },
+      ],
+    },
+  ],
+};
 
-
-  //Add test quiz to store. Only temporary for mock data.
-  QuizStore.addQuiz(testQuiz1);
-  QuizStore.addQuiz(testQuiz2);
-  QuizStore.addQuiz(testQuiz3);
+//Add test quiz to store. Only temporary for mock data.
+QuizStore.addQuiz(testQuiz1);
+QuizStore.addQuiz(testQuiz2);
+QuizStore.addQuiz(testQuiz3);

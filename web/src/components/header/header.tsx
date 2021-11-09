@@ -5,7 +5,7 @@ import { useColors } from "../../hooks/useColors";
 import ColorModeBtn from "../buttons/colorModeBtn";
 import NavBar from "./navbar";
 
-const Header: FC = ({ children }) => {
+const Header: FC = () => {
   const appName = "YouQuiz";
   const { headerBg } = useColors();
 
@@ -15,7 +15,9 @@ const Header: FC = ({ children }) => {
         <Container maxW="container.lg" p={0}>
           <Flex justifyContent="space-between" paddingX={[2, 5, 10]} py={3}>
             <HStack spacing={10}>
-              <Link to="/"><Heading size="md">{appName}</Heading></Link>
+              <Link to="/">
+                <Heading size="md">{appName}</Heading>
+              </Link>
               <NavBar />
             </HStack>
             <ColorModeBtn />

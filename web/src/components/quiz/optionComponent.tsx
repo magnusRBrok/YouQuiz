@@ -35,11 +35,9 @@ const Option: FC<optionProps> = ({ answer, option, onClick, i }) => {
       _hover={!answer ? { backgroundColor: optionBgHover } : {}}
       fontWeight="normal"
       justifyContent="start"
-      onClick={(e) => onClick(option)}
+      onClick={() => onClick(option)}
     >
-      <Stack
-          direction={"row"}
-          spacing={6}>
+      <Stack direction={"row"} spacing={6}>
         <Text>{alphabet[i]}</Text>
         <Text>{option.text}</Text>
       </Stack>
