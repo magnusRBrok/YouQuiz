@@ -31,6 +31,14 @@ public class UserService {
         return Response.status(Response.Status.CREATED).entity(id).build();
     }
 
+    @PUT
+    @Consumes("application/json")
+    public Response updateUser(@QueryParam("id") int id, DBUserDto dto) {
+        DBUser newUser = new ObjectMapper().convertValue(dto, new TypeReference<DBUser>(){});
+        userDAO.updateUser(id, newUser);
+        return Response.status(Response.Status.OK).entity("User updated").build();
+    }
+
     @DELETE
     @Path("{id}")
     public Response deleteUser(@PathParam("id") int id) {

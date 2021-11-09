@@ -1,6 +1,8 @@
 package Quiz.dao;
 
 import Quiz.model.Quiz;
+import User.DBUser;
+import Util.DAObase;
 import Util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,7 +11,7 @@ import org.hibernate.Transaction;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 
-public class QuizDaoImpl implements IQuizDAO {
+public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
     public Quiz getQuiz(int id) {
         try (Session session = HibernateUtil.getSession()) {
@@ -26,10 +28,18 @@ public class QuizDaoImpl implements IQuizDAO {
     }
 
     @Override
-    public int addQuiz(Quiz quiz) {
+    public int addQuiz(Quiz quiz, int userId) {
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSession()) {
+        Session session = HibernateUtil.getSession();
+        try {
             tx = session.beginTransaction();
+
+            DBUser user = session.get(DBUser.class, userId);
+            if (user == null)
+                throw new NotFoundException("User id not found. Id: " + userId);
+
+            quiz.setCreatedBy(user);
+
             int id = (int) session.save(quiz);
             tx.commit();
             return id;
@@ -37,6 +47,8 @@ public class QuizDaoImpl implements IQuizDAO {
             if (tx != null)
                 tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return -1;
     }
@@ -74,11 +86,13 @@ public class QuizDaoImpl implements IQuizDAO {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            Quiz quiz = session.load(Quiz.class, id);
+            Quiz quiz = session.get(Quiz.class, id);
 
             if (quiz == null)
                 throw new NotFoundException("Quiz not found. Id: " + id);
 
+            quiz.getCreatedBy().getQuizzes().remove(quiz);
+            quiz.setCreatedBy(null);
             session.delete(quiz);
             tx.commit();
         } catch (HibernateException e) {

@@ -37,10 +37,10 @@ public class QuizService {
         Quiz quiz = new ObjectMapper().convertValue(dto, new TypeReference<Quiz>(){});
 
         //TODO: Modify so that it fetches the user that made the request. Id from token claims.
-        DBUser creator = userDAO.getUser(3);
-        quiz.setCreatedBy(creator);
+        //DBUser creator = userDAO.getUser(3);
+        //quiz.setCreatedBy(creator);
 
-        int id = quizDAO.addQuiz(quiz);
+        int id = quizDAO.addQuiz(quiz, 3);
 
         return Response.status(Response.Status.CREATED).entity(id).build();
     }
