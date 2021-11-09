@@ -48,13 +48,13 @@ const QuizComponent: FC = observer(() => {
                     }`}</Text>
                     <Text>{QuizStore.correctAnswers} correct</Text>
                     <HStack>
-                        <Button onClick={() => changeQuestion(currentQuestionIndex - 1)}>
+                        <Button isDisabled={currentQuestionIndex == 0} colorScheme="blue" onClick={() => changeQuestion(currentQuestionIndex - 1)}>
                             Previous
                         </Button>
                         {isQuizCompleted ?
-                            <Button onClick={() => setShowCompletePage(true)}>
-                            Afslut
-                        </Button> : <Button onClick={() => changeQuestion(currentQuestionIndex + 1)}>
+                            <Button isDisabled={(QuizStore.quizSession?.answers.size ?? 0) < currentQuestionIndex+1} colorScheme="blue" onClick={() => setShowCompletePage(true)}>
+                            Results
+                        </Button> : <Button isDisabled={(QuizStore.quizSession?.answers.size ?? 0) < currentQuestionIndex+1}  colorScheme="blue" onClick={() => changeQuestion(currentQuestionIndex + 1)}>
                             Next
                         </Button> }
                     </HStack>
