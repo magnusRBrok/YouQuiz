@@ -7,18 +7,21 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - postgres
+      postgres:
   db:
     container_name: postgres_container
+    hostname: postgres
     image: postgres
     environment:
-      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-12345}
+      PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      postgres:
 
 networks:
   postgres:
