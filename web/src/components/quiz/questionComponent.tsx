@@ -22,7 +22,7 @@ const QuestionComponent: FC<questionProp> = observer(({ question }) => {
 
   return (
     <div>
-      <Heading size="md">{question.description}</Heading>
+      <Heading mb="5px" size="md">{question.description}</Heading>
       <Stack spacing={4}>
         {question.options.map((option, i) => (
           <Option

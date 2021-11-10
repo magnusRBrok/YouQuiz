@@ -1,12 +1,12 @@
 import { useColorModeValue } from "@chakra-ui/react";
 
 export const useColors = () => {
-  const headerBg = useColorModeValue("gray.200", "gray.700");
-  const optionBg = useColorModeValue("gray.200", "gray.700");
-  const optionBgHover = useColorModeValue("gray.300", "gray.800");
+  const headerBg = useColorModeValue("blue.300", "blue.800");
+  const optionBg = useColorModeValue("blue.200", "blue.700");
+  const optionBgHover = useColorModeValue("blue.300", "blue.800");
   const optionCorrect = useColorModeValue("green.400", "green.600");
   const optionIncorrect = useColorModeValue("red.400", "red.600");
-    const primaryColorHover = useColorModeValue("gray.100", "grey.700");
+  const primaryColorHover = useColorModeValue("blue.100", "blue.700");
 
   return {
     headerBg,
