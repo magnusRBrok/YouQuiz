@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: youquiz_container
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      postgres:
+  db:
+    container_name: postgres_container
+    hostname: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-12345}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      postgres:
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
