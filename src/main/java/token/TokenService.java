@@ -2,6 +2,7 @@ package token;
 
 import login.LoginData;
 import login.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,14 +21,17 @@ public class TokenService {
     @POST
     public String postLoginData(LoginData login) throws NotAuthorizedException
     {
-        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && "kodeord".equals(login.getPassword())){
+        String hashedPass = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
+        String hashedPass2 = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
+
+        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && BCrypt.checkpw(hashedPass2, hashedPass)){
             return TokenHandler.generateJwtToken(new User(login.getEmail()));
         }
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
     }
 
     @POST
-    @Path("tokentest")
+    @Path("validate")
     public User postToken(String token) throws NotAuthorizedException {
         return TokenHandler.validate(token);
     }
