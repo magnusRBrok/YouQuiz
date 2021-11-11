@@ -22,9 +22,8 @@ public class TokenService {
     public String postLoginData(LoginData login) throws NotAuthorizedException
     {
         String hashedPass = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
-        String hashedPass2 = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
 
-        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && BCrypt.checkpw(hashedPass2, hashedPass)){
+        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && BCrypt.checkpw(login.getPassword(), hashedPass)){
             return TokenHandler.generateJwtToken(new User(login.getEmail()));
         }
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
