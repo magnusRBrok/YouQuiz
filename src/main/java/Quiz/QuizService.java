@@ -49,7 +49,7 @@ public class QuizService {
         //DBUser creator = userDAO.getUser(3);
         //quiz.setCreatedBy(creator);
 
-        int id = quizDAO.addQuiz(quiz, 3);
+        int id = quizDAO.addQuiz(quiz, -1);
 
         return Response.status(Response.Status.CREATED).entity(id).build();
     }
