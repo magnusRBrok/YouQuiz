@@ -23,7 +23,7 @@ public class TokenService {
     {
         String hashedPass = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
 
-        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && BCrypt.checkpw(login.getPassword(), hashedPass)){
+        if (login!=null && "brian@hej.dk".equals(login.getEmail()) && BCrypt.checkpw("kodeord", hashedPass)){
             return TokenHandler.generateJwtToken(new User(login.getEmail()));
         }
         throw new NotAuthorizedException("forkert brugernavn/kodeord");

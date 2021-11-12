@@ -27,9 +27,14 @@ class TokenStore {
                     console.log("Got token: " + token);
                     this.token = token;
                     localStorage.setItem("youQuizToken", token);
-                    this.state = loginStates.LOGGED_IN
+                    if (response.ok) {
+                        this.state = loginStates.LOGGED_IN
+                    }
                     console.log("State changed to: " + this.state)
-                })
+                }).catch(() => {
+                    this.state = loginStates.LOGGED_OUT
+                console.log("State changed to: " + this.state)
+            })
         ).catch(() => {
             this.state = loginStates.LOGGED_OUT
             console.log("State changed to: " + this.state)
