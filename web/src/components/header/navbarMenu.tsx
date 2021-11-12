@@ -9,9 +9,11 @@ const NavbarMenu: FC = ({ children }) => {
     <Menu>
       <MenuButton icon={<HamburgerIcon />} as={IconButton} variant="outline" />
       <MenuList>
+        <Link to="/login">
         <MenuItem>
-          <Link to="/login">Login</Link>
+          <>Login</>
         </MenuItem>
+        </Link>
       </MenuList>
     </Menu>
   );
