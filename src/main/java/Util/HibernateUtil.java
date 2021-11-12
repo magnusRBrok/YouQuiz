@@ -15,6 +15,9 @@ public class HibernateUtil {
 
     static {
         try {
+            //Configuration cfg = new Configuration();
+            //cfg.setProperty("hibernate.connection.url", System.getenv("DATABASE_URL"));
+            //cfg.configure();
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
