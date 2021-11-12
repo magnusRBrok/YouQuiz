@@ -6,20 +6,18 @@ class TokenStore {
 
     state = loginStates.LOGGED_OUT
     token: string | null = "";
-    loginData = observable({email: "", password: ""})
-
 
     constructor() {
         this.token = localStorage.getItem("youQuizToken")
 
     }
 
-    login() {
+    login(email: string, password: string) {
         this.state = loginStates.LOGGING_IN
         console.log("State changed to: " + this.state)
-        fetch("http://localhost:8080/rest/login", {
+        fetch("http://localhost:8080/rest/login", { //change this to match host name
             method: "POST",
-            body: JSON.stringify(this.loginData),
+            body: JSON.stringify({email: email, password: password}),
             headers: {
                 'content-Type': 'application/json'
             }

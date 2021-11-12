@@ -22,10 +22,7 @@ const LoginForm: FC = () => {
 
   const onSubmit = (data: any) => {
     const { email, password } = data;
-    tokenStore.loginData.email = email;
-    tokenStore.loginData.password = password;
-    //TODO handle login logic
-    tokenStore.login()
+    tokenStore.login(email, password)
     console.log(email, password);
   };
 
