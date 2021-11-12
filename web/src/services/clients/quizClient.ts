@@ -29,7 +29,26 @@ export class QuizClient extends ClientBase implements IQuizClient {
         .then((transformedOptions_) => fetch(url, transformedOptions_))
         .then((response: Response) => this.processResponse(response))
         // TODO handle the returned JSON object in next chain
-        .then()
+        .then((res) => {
+          console.log(res);
+          return res as Quiz;
+        })
+    );
+  };
+
+  getAllQuizzes = async (): Promise<Quiz[]> => {
+    const url = `${this.baseUrl}/rest/quiz`;
+    const options: RequestInit = {};
+
+    return (
+      this.transformOptions(options)
+        .then((transformedOptions_) => fetch(url, transformedOptions_))
+        .then((response: Response) => this.processResponse(response))
+        // TODO handle the returned JSON object in next chain
+        .then((res) => {
+          console.log(res as Quiz[]);
+          return res as Quiz[];
+        })
     );
   };
 
