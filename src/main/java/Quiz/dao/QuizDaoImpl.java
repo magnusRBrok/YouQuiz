@@ -8,8 +8,12 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import java.util.Collection;
 
 public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
@@ -21,6 +25,31 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
                 throw new NotFoundException("Quiz not found. Id: " + id);
 
             return quiz;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Override
+    public Collection<Quiz> getAllQuizzes() {
+        try (Session session = HibernateUtil.getSession()) {
+            return HibernateUtil.loadAllData(Quiz.class, session);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<Quiz> getAllQuizzesByUser(int userId) {
+        try (Session session = HibernateUtil.getSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Quiz> criteria = builder.createQuery(Quiz.class);
+            Root<Quiz> root = criteria.from(Quiz.class);
+            criteria.select(root).where(builder.equal(root.get("user_id"), userId));
+            return session.createQuery(criteria).getResultList();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
