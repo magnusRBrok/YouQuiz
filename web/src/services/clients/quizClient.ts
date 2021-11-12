@@ -2,81 +2,83 @@ import { Quiz } from "../../model/quiz";
 import { AuthBase, ClientBase } from "../clientBase";
 
 export interface IQuizClient {
-
-    getQuiz: (id: number) => Promise<Quiz>
-    createQuiz: (quiz: Quiz) => Promise<Quiz>
-    updateQuiz: (id: number, quiz: Quiz) => Promise<Quiz>
-    deleteQuiz: (id: number) => Promise<void> 
+  getQuiz: (id: number) => Promise<Quiz>;
+  createQuiz: (quiz: Quiz) => Promise<Quiz>;
+  updateQuiz: (id: number, quiz: Quiz) => Promise<Quiz>;
+  deleteQuiz: (id: number) => Promise<void>;
 }
 
 export class QuizClient extends ClientBase implements IQuizClient {
-    private baseUrl: string
+  private baseUrl: string;
 
-    constructor(
-        configuration: AuthBase,
-        baseUrl? : string,
-    )
-    {
-        super(configuration)
-        // if client constructor is called without a baseUrl, localhost:8080 will be used
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:8080";
-    }
-    
+  constructor(configuration: AuthBase, baseUrl?: string) {
+    super(configuration);
+    // if client constructor is called without a baseUrl, localhost:8080 will be used
+    this.baseUrl =
+      baseUrl !== undefined && baseUrl !== null
+        ? baseUrl
+        : "https://youquiz.devops.diplomportal.dk";
+  }
 
-    getQuiz = async (id: number): Promise<Quiz> => {
-        const url = `${this.baseUrl}/rest/quiz/${id}`
-        const options: RequestInit = {}
+  getQuiz = async (id: number): Promise<Quiz> => {
+    const url = `${this.baseUrl}/rest/quiz/${id}`;
+    const options: RequestInit = {};
 
-        return this.transformOptions(options)
-        .then(transformedOptions_ => fetch(url, transformedOptions_))
+    return (
+      this.transformOptions(options)
+        .then((transformedOptions_) => fetch(url, transformedOptions_))
         .then((response: Response) => this.processResponse(response))
         // TODO handle the returned JSON object in next chain
         .then()
-    }
+    );
+  };
 
-    createQuiz = async (quiz: Quiz): Promise<Quiz> => {
-        const url = `${this.baseUrl}/rest/quiz`
-        const options: RequestInit = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(quiz)
-        }
-        return this.transformOptions(options)
-        .then(transformedOptions_ => fetch(url, transformedOptions_))
+  createQuiz = async (quiz: Quiz): Promise<Quiz> => {
+    const url = `${this.baseUrl}/rest/quiz`;
+    const options: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(quiz),
+    };
+    return (
+      this.transformOptions(options)
+        .then((transformedOptions_) => fetch(url, transformedOptions_))
         .then((response: Response) => this.processResponse(response))
-        .catch(e => console.log('ERROR',e))
+        .catch((e) => console.log("ERROR", e))
         // TODO handle the returned JSON object in next chain
         .then()
-    }
+    );
+  };
 
-    updateQuiz = async (id: number, quiz: Quiz): Promise<Quiz> => {
-        const url = `${this.baseUrl}/rest/quiz`
-        const options: RequestInit = {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(quiz)
-        }
-        return this.transformOptions(options)
-        .then(transformedOptions_ => fetch(url, transformedOptions_))
+  updateQuiz = async (id: number, quiz: Quiz): Promise<Quiz> => {
+    const url = `${this.baseUrl}/rest/quiz`;
+    const options: RequestInit = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(quiz),
+    };
+    return (
+      this.transformOptions(options)
+        .then((transformedOptions_) => fetch(url, transformedOptions_))
         .then((response: Response) => this.processResponse(response))
-        .catch(e => console.log('ERROR',e))
+        .catch((e) => console.log("ERROR", e))
         // TODO handle the returned JSON object in next chain
         .then()
-    }
+    );
+  };
 
-    deleteQuiz = async (id: number): Promise<void> => {
-        const url = `${this.baseUrl}/rest/quiz/${id}`
-        const options: RequestInit = {
-            method: 'DELETE'
-        }
-        return this.transformOptions(options)
-        .then(transformedOptions_ => fetch(url, transformedOptions_))
-        .then((response: Response) => this.processResponse<void>(response))
-        .catch(e => console.log('ERROR',e))
-    }
+  deleteQuiz = async (id: number): Promise<void> => {
+    const url = `${this.baseUrl}/rest/quiz/${id}`;
+    const options: RequestInit = {
+      method: "DELETE",
+    };
+    return this.transformOptions(options)
+      .then((transformedOptions_) => fetch(url, transformedOptions_))
+      .then((response: Response) => this.processResponse<void>(response))
+      .catch((e) => console.log("ERROR", e));
+  };
 }
-
