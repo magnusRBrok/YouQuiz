@@ -10,6 +10,7 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useColorModeValue as mode } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import {tokenStore} from "../stores/TokenStore";
 
 const LoginForm: FC = () => {
   const {
@@ -21,8 +22,7 @@ const LoginForm: FC = () => {
 
   const onSubmit = (data: any) => {
     const { email, password } = data;
-
-    //TODO handle login logic
+    tokenStore.login(email, password)
     console.log(email, password);
   };
 
