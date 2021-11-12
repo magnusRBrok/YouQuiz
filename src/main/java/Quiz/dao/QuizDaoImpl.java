@@ -31,25 +31,10 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
         return null;
     }
 
-
     @Override
     public Collection<Quiz> getAllQuizzes() {
         try (Session session = HibernateUtil.getSession()) {
             return HibernateUtil.loadAllData(Quiz.class, session);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Collection<Quiz> getAllQuizzesByUser(int userId) {
-        try (Session session = HibernateUtil.getSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Quiz> criteria = builder.createQuery(Quiz.class);
-            Root<Quiz> root = criteria.from(Quiz.class);
-            criteria.select(root).where(builder.equal(root.get("user_id"), userId));
-            return session.createQuery(criteria).getResultList();
         } catch (HibernateException e) {
             e.printStackTrace();
         }

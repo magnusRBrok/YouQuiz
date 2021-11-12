@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 @Path("quiz")
 public class QuizService {
@@ -28,6 +29,14 @@ public class QuizService {
         Quiz quiz = quizDAO.getQuiz(id);
         QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
         return Response.status(Response.Status.OK).entity(dto).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllQuizes(){
+        Collection<Quiz> quizzes = quizDAO.getAllQuizzes();
+        //QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
+        return Response.status(Response.Status.OK).entity(quizzes).build();
     }
 
 
