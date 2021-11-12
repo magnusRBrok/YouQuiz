@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
@@ -23,6 +24,8 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
 
             if (quiz == null)
                 throw new NotFoundException("Quiz not found. Id: " + id);
+
+            //quiz.setQuestions(new HashSet<>(quiz.getQuestions()));
 
             return quiz;
         } catch (HibernateException e) {
@@ -48,11 +51,14 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
         try {
             tx = session.beginTransaction();
 
-            DBUser user = session.get(DBUser.class, userId);
+
+            //TODO: Change back to the commented out code
+            //DBUser user = session.get(DBUser.class, userId);
+            DBUser user = HibernateUtil.loadAllData(DBUser.class, session).get(0);
             if (user == null)
                 throw new NotFoundException("User id not found. Id: " + userId);
 
-            quiz.setCreatedBy(user);
+             quiz.setCreatedBy(user);
 
             int id = (int) session.save(quiz);
             tx.commit();
