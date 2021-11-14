@@ -22,7 +22,7 @@ class DBUser {
     @Column(name = "first_name")
     private String first_name;
 
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Collection<Quiz> quizzes = new ArrayList<>();
 

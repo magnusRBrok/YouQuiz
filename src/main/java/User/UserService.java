@@ -2,12 +2,16 @@ package User;
 
 import User.dao.IUserDAO;
 import User.dao.UserDAOImpl;
+import User.dto.DBUserDto;
+import User.dto.DBUserQuizzesDto;
+import Util.DTOUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 @Path("user")
 public class UserService {
@@ -18,15 +22,21 @@ public class UserService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") int id){
-        DBUser user = userDAO.getUser(id);
-        DBUserDto dto = new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){});
-        return Response.status(Response.Status.OK).entity(dto).build();
+        DBUserQuizzesDto user = userDAO.getUser(id);
+        return Response.status(Response.Status.OK).entity(user).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers(){
+        Collection<DBUserQuizzesDto> users = userDAO.getAllUsers();
+        return Response.status(Response.Status.OK).entity(users).build();
     }
 
     @POST
     @Consumes("application/json")
     public Response createUser(DBUserDto dto){
-        DBUser user = new ObjectMapper().convertValue(dto, new TypeReference<DBUser>(){});
+        DBUser user = DTOUtil.convert(dto, new TypeReference<DBUser>(){});
         int id = userDAO.addUser(user);
         return Response.status(Response.Status.CREATED).entity(id).build();
     }
@@ -34,7 +44,7 @@ public class UserService {
     @PUT
     @Consumes("application/json")
     public Response updateUser(@QueryParam("id") int id, DBUserDto dto) {
-        DBUser newUser = new ObjectMapper().convertValue(dto, new TypeReference<DBUser>(){});
+        DBUser newUser = DTOUtil.convert(dto, new TypeReference<DBUser>(){});
         userDAO.updateUser(id, newUser);
         return Response.status(Response.Status.OK).entity("User updated").build();
     }
