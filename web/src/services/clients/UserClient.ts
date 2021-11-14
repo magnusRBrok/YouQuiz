@@ -9,7 +9,7 @@ export interface IUserClient {
 }
 
 export class UserClient extends ClientBase implements IUserClient {
-  private baseUrl: string;
+  private baseUrl?: string;
 
   constructor(configuration: AuthBase, baseUrl?: string) {
     super(configuration);
@@ -17,7 +17,7 @@ export class UserClient extends ClientBase implements IUserClient {
     this.baseUrl =
       baseUrl !== undefined && baseUrl !== null
         ? baseUrl
-        : "https://youquiz.devops.diplomportal.dk";
+        : process.env.REACT_APP_API_URL;
   }
 
   getUser = async (id: number): Promise<User> => {
