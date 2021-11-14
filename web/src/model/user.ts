@@ -1,7 +1,7 @@
 import { Quiz } from "./quiz";
 
 export type User = {
-    id: number,
-    firstName: string,
-    quizes: Quiz[]
-}
+  id: number;
+  first_name: string;
+  quizzes?: Quiz[];
+};
