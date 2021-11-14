@@ -29,8 +29,7 @@ public class QuizService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getQuiz(@PathParam("id") int id){
-        Quiz quiz = quizDAO.getQuiz(id);
-        QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
+        QuizIdDto dto = quizDAO.getQuiz(id);
         return Response.status(Response.Status.OK).entity(dto).build();
     }
 
@@ -38,7 +37,6 @@ public class QuizService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllQuizes(){
         Collection<QuizIdDto> quizzes = quizDAO.getAllQuizzes();
-        //QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
         return Response.status(Response.Status.OK).entity(quizzes).build();
     }
 

@@ -1,26 +1,47 @@
 package User.dao;
 
+import Quiz.dto.QuizIdDto;
 import Quiz.model.Quiz;
 import User.DBUser;
+import User.DBUserDto;
 import Util.DAObase;
 import Util.HibernateUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class UserDAOImpl extends DAObase implements IUserDAO {
     @Override
-    public DBUser getUser(int id) {
+    public DBUserDto getUser(int id) {
         try (Session session = HibernateUtil.getSession()) {
             DBUser user = session.get(DBUser.class, id);
 
             if (user == null)
                 throw new NotFoundException("User not found. Id: " + id);
 
-            return user;
+            return new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){});
+        }
+    }
+
+    @Override
+    public Collection<DBUserDto> getAllUsers() {
+        try (Session session = HibernateUtil.getSession()) {
+            List<DBUserDto> users = new ArrayList<>();
+            HibernateUtil.loadAllData(DBUser.class, session).forEach(user -> {
+                users.add(new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){}));
+            });
+            return users;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            throw new InternalServerErrorException("An exception was thrown when fetching users");
         }
     }
 

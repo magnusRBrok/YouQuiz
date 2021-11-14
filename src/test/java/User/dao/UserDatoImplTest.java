@@ -1,6 +1,7 @@
 package User.dao;
 
 import User.DBUser;
+import User.DBUserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class UserDatoImplTest {
 
     @Test
     void getUser() {
-        DBUser user = userDAO.getUser(1);
+        DBUserDto user = userDAO.getUser(1);
         assertEquals("test user 1", user.getFirst_name());
 
         assertThrows(NotFoundException.class, () -> {
@@ -50,14 +51,14 @@ public class UserDatoImplTest {
     @Test
     void addAndGetUser() {
         int id = userDAO.addUser(new DBUser("new user"));
-        DBUser user = userDAO.getUser(id);
+        DBUserDto user = userDAO.getUser(id);
         assertEquals("new user", user.getFirst_name());
     }
 
     @Test
     void updateUser() {
         userDAO.updateUser(2, new DBUser("new name"));
-        DBUser user = userDAO.getUser(2);
+        DBUserDto user = userDAO.getUser(2);
         assertEquals("new name", user.getFirst_name());
     }
 

@@ -21,21 +21,20 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
-    public Quiz getQuiz(int id) {
+    public QuizIdDto getQuiz(int id) {
         try (Session session = HibernateUtil.getSession()) {
             Quiz quiz = session.get(Quiz.class, id);
 
             if (quiz == null)
                 throw new NotFoundException("Quiz not found. Id: " + id);
 
-            //quiz.setQuestions(new HashSet<>(quiz.getQuestions()));
+            QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
 
-            return quiz;
+            return dto;
         } catch (HibernateException e) {
             e.printStackTrace();
         }
@@ -44,15 +43,16 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
 
     @Override
     public Collection<QuizIdDto> getAllQuizzes() {
-        List<QuizIdDto> quizzes = new ArrayList<>();
         try (Session session = HibernateUtil.getSession()) {
+            List<QuizIdDto> quizzes = new ArrayList<>();
             HibernateUtil.loadAllData(Quiz.class, session).forEach(quiz -> {
                 quizzes.add(new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){}));
             });
+            return quizzes;
         } catch (HibernateException e) {
             e.printStackTrace();
+            throw new InternalServerErrorException("An exception was thrown when fetching quizzes.");
         }
-        return quizzes;
     }
 
     @Override
@@ -61,7 +61,6 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
         Session session = HibernateUtil.getSession();
         try {
             tx = session.beginTransaction();
-
 
             //TODO: Change back to the commented out code
             //DBUser user = session.get(DBUser.class, userId);

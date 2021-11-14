@@ -1,5 +1,6 @@
 package Quiz.dto;
 
+import User.DBUserDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

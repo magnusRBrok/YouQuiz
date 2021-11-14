@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 @Path("user")
 public class UserService {
@@ -18,9 +19,15 @@ public class UserService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") int id){
-        DBUser user = userDAO.getUser(id);
-        DBUserDto dto = new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){});
-        return Response.status(Response.Status.OK).entity(dto).build();
+        DBUserDto user = userDAO.getUser(id);
+        return Response.status(Response.Status.OK).entity(user).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers(){
+        Collection<DBUserDto> users = userDAO.getAllUsers();
+        return Response.status(Response.Status.OK).entity(users).build();
     }
 
     @POST
