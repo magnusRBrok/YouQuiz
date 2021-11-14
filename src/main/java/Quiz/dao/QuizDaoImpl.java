@@ -1,9 +1,15 @@
 package Quiz.dao;
 
+import Quiz.dto.QuizDto;
+import Quiz.dto.QuizIdDto;
+import Quiz.model.Question;
 import Quiz.model.Quiz;
 import User.DBUser;
 import Util.DAObase;
 import Util.HibernateUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,8 +19,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 public class QuizDaoImpl extends DAObase implements IQuizDAO {
     @Override
@@ -35,13 +43,16 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
     }
 
     @Override
-    public Collection<Quiz> getAllQuizzes() {
+    public Collection<QuizIdDto> getAllQuizzes() {
+        List<QuizIdDto> quizzes = new ArrayList<>();
         try (Session session = HibernateUtil.getSession()) {
-            return HibernateUtil.loadAllData(Quiz.class, session);
+            HibernateUtil.loadAllData(Quiz.class, session).forEach(quiz -> {
+                quizzes.add(new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){}));
+            });
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-        return null;
+        return quizzes;
     }
 
     @Override

@@ -4,13 +4,16 @@ import Quiz.dao.IQuizDAO;
 import Quiz.dao.QuizDaoImpl;
 import Quiz.dto.QuizDto;
 import Quiz.dto.QuizIdDto;
+import Quiz.model.Question;
 import Quiz.model.Quiz;
 import User.DBUser;
 import User.dao.IUserDAO;
 import User.dao.UserDAOImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Hibernate;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,7 +37,7 @@ public class QuizService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllQuizes(){
-        Collection<Quiz> quizzes = quizDAO.getAllQuizzes();
+        Collection<QuizIdDto> quizzes = quizDAO.getAllQuizzes();
         //QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
         return Response.status(Response.Status.OK).entity(quizzes).build();
     }
