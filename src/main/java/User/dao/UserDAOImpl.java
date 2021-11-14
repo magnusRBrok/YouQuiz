@@ -1,13 +1,11 @@
 package User.dao;
 
-import Quiz.dto.QuizIdDto;
-import Quiz.model.Quiz;
 import User.DBUser;
-import User.DBUserDto;
+import User.dto.DBUserQuizzesDto;
 import Util.DAObase;
+import Util.DTOUtil;
 import Util.HibernateUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,23 +18,23 @@ import java.util.List;
 
 public class UserDAOImpl extends DAObase implements IUserDAO {
     @Override
-    public DBUserDto getUser(int id) {
+    public DBUserQuizzesDto getUser(int id) {
         try (Session session = HibernateUtil.getSession()) {
             DBUser user = session.get(DBUser.class, id);
 
             if (user == null)
                 throw new NotFoundException("User not found. Id: " + id);
 
-            return new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){});
+            return DTOUtil.convert(user, new TypeReference<DBUserQuizzesDto>(){});
         }
     }
 
     @Override
-    public Collection<DBUserDto> getAllUsers() {
+    public Collection<DBUserQuizzesDto> getAllUsers() {
         try (Session session = HibernateUtil.getSession()) {
-            List<DBUserDto> users = new ArrayList<>();
+            List<DBUserQuizzesDto> users = new ArrayList<>();
             HibernateUtil.loadAllData(DBUser.class, session).forEach(user -> {
-                users.add(new ObjectMapper().convertValue(user, new TypeReference<DBUserDto>(){}));
+                users.add(DTOUtil.convert(user, new TypeReference<DBUserQuizzesDto>(){}));
             });
             return users;
         } catch (HibernateException e) {

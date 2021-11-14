@@ -1,14 +1,15 @@
 package User.dao;
 
 import User.DBUser;
-import User.DBUserDto;
+import User.dto.DBUserDto;
+import User.dto.DBUserQuizzesDto;
 
 import java.util.Collection;
 
 public interface IUserDAO {
 
-    DBUserDto getUser(int id);
-    Collection<DBUserDto> getAllUsers();
+    DBUserQuizzesDto getUser(int id);
+    Collection<DBUserQuizzesDto> getAllUsers();
     int addUser(DBUser user);
     void updateUser(int id, DBUser newUser);
     void deleteUser(int id);

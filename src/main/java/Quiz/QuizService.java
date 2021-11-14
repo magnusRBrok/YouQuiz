@@ -9,6 +9,7 @@ import Quiz.model.Quiz;
 import User.DBUser;
 import User.dao.IUserDAO;
 import User.dao.UserDAOImpl;
+import Util.DTOUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Hibernate;
@@ -44,7 +45,7 @@ public class QuizService {
     @POST
     @Consumes("application/json")
     public Response createQuiz(QuizDto dto){
-        Quiz quiz = new ObjectMapper().convertValue(dto, new TypeReference<Quiz>(){});
+        Quiz quiz = DTOUtil.convert(dto, new TypeReference<Quiz>(){});
 
         //TODO: Modify so that it fetches the user that made the request. Id from token claims.
         //DBUser creator = userDAO.getUser(3);
@@ -58,7 +59,7 @@ public class QuizService {
     @PUT
     @Consumes("application/json")
     public Response updateQuiz(@QueryParam("id") int id, QuizIdDto dto) {
-        Quiz newQuiz = new ObjectMapper().convertValue(dto, new TypeReference<Quiz>(){});
+        Quiz newQuiz = DTOUtil.convert(dto, new TypeReference<Quiz>() {});
         quizDAO.updateQuiz(id, newQuiz);
         return Response.status(Response.Status.OK).entity("Quiz updated").build();
     }

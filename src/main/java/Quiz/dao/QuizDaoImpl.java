@@ -1,22 +1,18 @@
 package Quiz.dao;
 
-import Quiz.dto.QuizDto;
 import Quiz.dto.QuizIdDto;
-import Quiz.model.Question;
 import Quiz.model.Quiz;
 import User.DBUser;
+import User.dto.DBUserDto;
 import Util.DAObase;
+import Util.DTOUtil;
 import Util.HibernateUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
@@ -28,11 +24,15 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
     public QuizIdDto getQuiz(int id) {
         try (Session session = HibernateUtil.getSession()) {
             Quiz quiz = session.get(Quiz.class, id);
-
             if (quiz == null)
                 throw new NotFoundException("Quiz not found. Id: " + id);
 
-            QuizIdDto dto = new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){});
+            DBUser user = session.get(DBUser.class, quiz.getCreatedById());
+            if (user == null)
+                throw new NotFoundException("Creator of quiz not found. Quiz id: " + id);
+
+            QuizIdDto dto = DTOUtil.convert(quiz, new TypeReference<QuizIdDto>(){});
+            dto.setCreatedBy(DTOUtil.convert(user, new TypeReference<DBUserDto>(){}));
 
             return dto;
         } catch (HibernateException e) {
@@ -46,7 +46,12 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
         try (Session session = HibernateUtil.getSession()) {
             List<QuizIdDto> quizzes = new ArrayList<>();
             HibernateUtil.loadAllData(Quiz.class, session).forEach(quiz -> {
-                quizzes.add(new ObjectMapper().convertValue(quiz, new TypeReference<QuizIdDto>(){}));
+                DBUser user = session.get(DBUser.class, quiz.getCreatedById());
+                if (user == null)
+                    throw new NotFoundException("Creator of quiz not found. Quiz Id: " + quiz.getId());
+                QuizIdDto dto = DTOUtil.convert(quiz, new TypeReference<QuizIdDto>(){});
+                dto.setCreatedBy(DTOUtil.convert(user, new TypeReference<DBUserDto>(){}));
+                quizzes.add(dto);
             });
             return quizzes;
         } catch (HibernateException e) {
@@ -68,7 +73,8 @@ public class QuizDaoImpl extends DAObase implements IQuizDAO {
             if (user == null)
                 throw new NotFoundException("User id not found. Id: " + userId);
 
-             quiz.setCreatedBy(user);
+            quiz.setCreatedById(user.getId());
+            quiz.setCreatedBy(user);
 
             int id = (int) session.save(quiz);
             tx.commit();

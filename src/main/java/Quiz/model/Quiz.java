@@ -37,6 +37,9 @@ public @Data class Quiz {
     @ToString.Exclude
     private DBUser createdBy;
 
+    @Column(name = "user_id_only")
+    private int createdById;
+
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Collection<Question> questions = new ArrayList<>();

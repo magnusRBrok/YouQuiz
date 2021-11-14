@@ -41,7 +41,7 @@ class QuizDaoImplTest {
         assertEquals("title 1", quiz.getTitle());
         assertEquals("description 1", quiz.getDescription());
         assertEquals("category 1", quiz.getCategory());
-        //assertEquals(1, quiz.getCreatedBy().getId());
+        assertEquals(1, quiz.getCreatedBy().getId());
 
         assertThrows(NotFoundException.class, () -> {
             quizDAO.getQuiz(1000);
