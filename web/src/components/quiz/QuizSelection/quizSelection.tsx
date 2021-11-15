@@ -36,8 +36,8 @@ const QuizSelection: FC = observer(() => {
       <Heading>Select a quiz</Heading>
       <SimpleGrid width="full" minChildWidth="240px" spacing="10px">
         {QuizStore.quizes.map((quiz) => (
-          <Center>
-            <QuizSelectionItem key={quiz.id} quiz={quiz} />
+          <Center key={quiz.id}>
+            <QuizSelectionItem quiz={quiz} />
           </Center>
         ))}
       </SimpleGrid>
