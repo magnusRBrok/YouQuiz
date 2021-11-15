@@ -15,7 +15,11 @@ public class HibernateUtil {
 
     static {
         try {
-            factory = new Configuration().configure().buildSessionFactory();
+            Configuration cfg = new Configuration().configure();
+            String databaseUrl = System.getenv("DATABASE_URL") != null ? System.getenv("DATABASE_URL") : "localhost:5432/hibernatedb";
+            String connectionUrl = "jdbc:postgresql://" + databaseUrl;
+            cfg.setProperty("hibernate.connection.url", connectionUrl);
+            factory = cfg.buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);

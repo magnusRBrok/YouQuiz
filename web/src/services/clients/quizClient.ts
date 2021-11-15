@@ -9,7 +9,7 @@ export interface IQuizClient {
 }
 
 export class QuizClient extends ClientBase implements IQuizClient {
-  private baseUrl: string;
+  private baseUrl?: string;
 
   constructor(configuration: AuthBase, baseUrl?: string) {
     super(configuration);
@@ -17,7 +17,7 @@ export class QuizClient extends ClientBase implements IQuizClient {
     this.baseUrl =
       baseUrl !== undefined && baseUrl !== null
         ? baseUrl
-        : "https://youquiz.devops.diplomportal.dk";
+        : process.env.REACT_APP_API_URL;
   }
 
   getQuiz = async (id: number): Promise<Quiz> => {
