@@ -2,40 +2,40 @@ import {Button} from "@chakra-ui/button";
 import {Heading, HStack, Stack, Text} from "@chakra-ui/layout";
 import {observer} from "mobx-react-lite";
 import {FC, useCallback, useEffect, useMemo, useState} from "react";
+import { Quiz } from "../../model/quiz";
 import {QuizStore} from "../../stores/quizStore";
 import QuestionComponent from "./questionComponent";
 import QuizCompletion from "./quizCompletion";
 
-const QuizComponent: FC = observer(() => {
-    const quiz = QuizStore.getQuiz(1); //TODO: quiz id should be read from route
+type Props = {
+    quiz: Quiz
+}
 
-    if (!quiz) return <></>; //TODO: Render something that indicates the quiz cannot be found
+const QuizComponent: FC<Props> = observer(({quiz}) => {
+
 
     useEffect(() => {
         QuizStore.newQuizSession(quiz);
     }, [quiz]);
 
-    const [question, setQuestion] = useState(quiz?.questions[0]);
+    const [question, setQuestion] = useState(quiz.questions[0]);
+    const [showCompletePage, setShowCompletePage] = useState(false);
 
     const currentQuestionIndex = useMemo(
         () => quiz?.questions.findIndex((q) => q === question) ?? 0,
         [quiz, question]
     );
 
-    const [isQuizCompleted, setIsQuizCompleted] = useState(false);
 
-    const [showCompletePage, setShowCompletePage] = useState(false);
 
     const changeQuestion = useCallback(
         (index: number) => {
             quiz?.questions[index] && setQuestion(quiz.questions[index]);
-
-            if (index == quiz.questions.length - 1) setIsQuizCompleted(true)
         },
         [quiz, setQuestion]
     );
 
-    if (showCompletePage) return <QuizCompletion questionAmount={quiz.questions.length} correctAnswers={QuizStore.correctAnswers} quizName={quiz.title}/>
+    if (showCompletePage) return <QuizCompletion quiz={quiz} correctAnswers={QuizStore.correctAnswers} />
 
     return (
         <>
@@ -48,15 +48,17 @@ const QuizComponent: FC = observer(() => {
                     }`}</Text>
                     <Text>{QuizStore.correctAnswers} correct</Text>
                     <HStack>
-                        <Button onClick={() => changeQuestion(currentQuestionIndex - 1)}>
+                        <Button isDisabled={currentQuestionIndex == 0} colorScheme="blue" onClick={() => changeQuestion(currentQuestionIndex - 1)}>
                             Previous
-                        </Button>
-                        {isQuizCompleted ?
-                            <Button onClick={() => setShowCompletePage(true)}>
-                            Afslut
-                        </Button> : <Button onClick={() => changeQuestion(currentQuestionIndex + 1)}>
-                            Next
-                        </Button> }
+                        </Button> 
+                        {quiz.questions.length != currentQuestionIndex+1 &&
+                            <Button isDisabled={(QuizStore.quizSession?.answers.size ?? 0) < currentQuestionIndex+1}  colorScheme="blue" onClick={() => changeQuestion(currentQuestionIndex + 1)}>
+                                Next
+                            </Button>
+                        }
+                        {QuizStore.quizSession?.answers.size == quiz.questions.length && <Button isDisabled={(QuizStore.quizSession?.answers.size ?? 0) < currentQuestionIndex+1} colorScheme="green" onClick={() => setShowCompletePage(true)}>
+                            Results
+                        </Button>}
                     </HStack>
                 </Stack>
             )}

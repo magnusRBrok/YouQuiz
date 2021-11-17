@@ -1,4 +1,4 @@
 export type QuestionOption = {
   text: string;
-  isCorrect: boolean;
+  correct: boolean;
 };
