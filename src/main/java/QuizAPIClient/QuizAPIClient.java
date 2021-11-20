@@ -28,6 +28,18 @@ public class QuizAPIClient implements IQuizAPIClient {
      * @return List<QuizApiQuestionDTo>
      */
     public List<QuizApiQuestionDto> getQuiz(int questionLimit, QuizAPICategory category, QuizAPIDifficulty difficulty) throws ClientErrorException {
+        WebTarget target = client
+                .target(URL)
+                .queryParam(API_KEY, API_KEY_VALUE);
+        if (questionLimit != 0) target.queryParam(LIMIT, questionLimit);
+        if (category != null) target.queryParam(CATEGORY, category.getCategory());
+        if (difficulty != null) target.queryParam(DIFFICULTY, difficulty.getDifficulty());
+
+        return target
+                .request(MediaType.APPLICATION_JSON)
+                .get()
+                .readEntity(new GenericType<List<QuizApiQuestionDto>>(){});
+/*
         return client
                 .target(URL)
                 .queryParam(API_KEY, API_KEY_VALUE)
@@ -37,5 +49,7 @@ public class QuizAPIClient implements IQuizAPIClient {
                 .request(MediaType.APPLICATION_JSON)
                 .get()
                 .readEntity(new GenericType<List<QuizApiQuestionDto>>(){});
+
+ */
     }
 }

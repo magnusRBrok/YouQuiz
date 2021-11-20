@@ -1,5 +1,7 @@
 package QuizAPIClient.Enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum QuizAPICategory {
     linux("linux"),
     bash("bash"),
@@ -11,7 +13,8 @@ public enum QuizAPICategory {
     laravel("laravel"),
     kubernetes("kubernetes"),
     javascript("javascript"),
-    devops("devops");
+    devops("devops"),
+    random("");
 
     private String category;
 
@@ -19,6 +22,7 @@ public enum QuizAPICategory {
         this.category = category;
     }
 
+    @JsonValue
     public String getCategory() {
         return category;
     }

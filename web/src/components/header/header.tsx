@@ -1,4 +1,5 @@
 import { Box, Container, Flex, Heading, HStack } from "@chakra-ui/layout";
+import { motion, useMotionValue } from "framer-motion";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useColors } from "../../hooks/useColors";
