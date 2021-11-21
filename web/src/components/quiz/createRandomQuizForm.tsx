@@ -59,15 +59,23 @@ const CreateRandomQuizForm: FC<Props> = ({ setSubmitting }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing="4">
         <FormControl isInvalid={errors.title}>
-          <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="title" {...register("title", { required: true })} />
+          <FormLabel htmlFor="title">Title *</FormLabel>
+          <Input
+            id="title"
+            {...register("title", { required: true })}
+            placeholder="Quiz title..."
+          />
           <FormErrorMessage>
             Please enter a title for the quiz.
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.description}>
           <FormLabel htmlFor="description">Description</FormLabel>
-          <Input id="description" {...register("description", {})} />
+          <Input
+            id="description"
+            {...register("description", {})}
+            placeholder="Quiz description..."
+          />
         </FormControl>
         <FormControl isInvalid={errors.limit}>
           <FormLabel htmlFor="limit">Max number of questions</FormLabel>
@@ -82,7 +90,7 @@ const CreateRandomQuizForm: FC<Props> = ({ setSubmitting }) => {
         <FormControl isInvalid={errors.category}>
           <FormLabel htmlFor="category">Category</FormLabel>
           <Select
-            placeholder="Select category"
+            placeholder="Random"
             id="category"
             {...register("category", {})}
           >
@@ -102,7 +110,7 @@ const CreateRandomQuizForm: FC<Props> = ({ setSubmitting }) => {
         <FormControl isInvalid={errors.difficulty || creationFailed}>
           <FormLabel htmlFor="difficulty">Difficulty</FormLabel>
           <Select
-            placeholder="Select difficulty"
+            placeholder="Random"
             id="difficulty"
             {...register("difficulty", {})}
           >
@@ -116,7 +124,7 @@ const CreateRandomQuizForm: FC<Props> = ({ setSubmitting }) => {
           </FormErrorMessage>
         </FormControl>
         <Button type="submit" colorScheme="blue" size="lg" fontSize="md">
-          Create quiz
+          Generate quiz
         </Button>
       </Stack>
     </form>

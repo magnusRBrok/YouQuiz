@@ -1,4 +1,5 @@
 import { IconButton } from "@chakra-ui/button";
+import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,6 +20,10 @@ const MotionBox = motion(Box);
 
 const QuizSelectionItem: FC<Props> = observer(({ quiz }) => {
   const { quizItemBg, quizItemBgHover } = useColors();
+  const bgGradientValue = useColorModeValue(
+    "linear(to-b, white, gray.100)",
+    "linear(to-b, gray.700, gray.800)"
+  );
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -73,7 +78,7 @@ const QuizSelectionItem: FC<Props> = observer(({ quiz }) => {
               onMouseLeave={(e: any) => setDeleteVisible(false)}
               width="full"
               h="10rem"
-              bgGradient="linear(to-b, white, gray.100)"
+              bgGradient={bgGradientValue}
               p={2}
               borderRadius="md"
               boxShadow="xl"
