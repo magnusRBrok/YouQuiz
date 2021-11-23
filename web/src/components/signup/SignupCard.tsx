@@ -1,17 +1,15 @@
-import { FC } from "react";
-import LoginForm from "./LoginForm";
-
-import { Box } from "@chakra-ui/layout";
-
-import { Button, SimpleGrid } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/button";
+import { Box, SimpleGrid } from "@chakra-ui/layout";
+import React, { FC } from "react";
 import { FaGoogle } from "react-icons/fa";
-import DividerWithText from "./DividerWithText";
+import DividerWithText from "../login/DividerWithText";
+import { SignupForm } from "./SignupForm";
 
-export const LoginCard: FC = () => {
+export const SignupCard: FC = () => {
   return (
     <>
       <Box p="6" rounded="md" mt="6" maxW="md" mx="auto">
-        <LoginForm />
+        <SignupForm />
         <DividerWithText>or continue with</DividerWithText>
         <SimpleGrid mt="6" columns={1} spacing="3">
           <Button

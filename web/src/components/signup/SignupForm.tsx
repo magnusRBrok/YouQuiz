@@ -6,25 +6,27 @@ import {
 } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Flex, Stack } from "@chakra-ui/layout";
-import { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import { tokenStore } from "../stores/TokenStore";
 
-const LoginForm: FC = () => {
+export const SignupForm: FC = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data: any) => {
-    const { email, password } = data;
-    tokenStore.login(email, password);
-    console.log(email, password);
+    const { email, password, confirmedPassword } = data;
+    console.log(email, password, confirmedPassword);
+    //TODO call login endpoint
   };
 
   const [revealPassword, setRevealPassword] = useState(false);
+  const password = useRef({});
+  password.current = watch("password", "");
 
   const onClickReveal = () => {
     setRevealPassword((revealPassword) => !revealPassword);
@@ -48,14 +50,6 @@ const LoginForm: FC = () => {
         <FormControl isInvalid={errors.password}>
           <Flex justify="space-between">
             <FormLabel htmlFor="password">Password</FormLabel>
-            {/* <Box
-              as="a"
-              color={mode("blue.600", "blue.200")}
-              fontWeight="semibold"
-              fontSize="sm"
-            >
-              Forgot Password?
-            </Box> */}
           </Flex>
           <InputGroup>
             <InputRightElement>
@@ -82,12 +76,40 @@ const LoginForm: FC = () => {
             {errors.password && errors.password.message}
           </FormErrorMessage>
         </FormControl>
+        <FormControl isInvalid={errors.confirmedPassword}>
+          <Flex justify="space-between">
+            <FormLabel htmlFor="password">Confirm password</FormLabel>
+          </Flex>
+          <InputGroup>
+            <InputRightElement>
+              <IconButton
+                bg="transparent !important"
+                variant="ghost"
+                aria-label={
+                  revealPassword ? "Mask password" : "Reveal password"
+                }
+                icon={revealPassword ? <HiEyeOff /> : <HiEye />}
+                onClick={onClickReveal}
+              />
+            </InputRightElement>
+            <Input
+              id="confirmed-password"
+              type={revealPassword ? "text" : "password"}
+              autoComplete="current-password"
+              {...register("confirmedPassword", {
+                validate: (value) =>
+                  value === password.current || "The passwords do not match",
+              })}
+            />
+          </InputGroup>
+          <FormErrorMessage>
+            {errors.confirmedPassword && errors.confirmedPassword.message}
+          </FormErrorMessage>
+        </FormControl>
         <Button type="submit" colorScheme="blue" size="lg" fontSize="md">
-          Sign in
+          Sign up
         </Button>
       </Stack>
     </form>
   );
 };
-
-export default LoginForm;

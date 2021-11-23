@@ -1,17 +1,17 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
-import { FC } from "react";
-import { LoginCard } from "./LoginCard";
+import React, { FC } from "react";
+import { SignupCard } from "./SignupCard";
 
-interface LoginComponentProps {
+interface SignupComponentProps {
   showLogin: (showLogin: boolean) => void;
 }
 
-export const LoginComponent: FC<LoginComponentProps> = ({ showLogin }) => {
+export const SignupComponent: FC<SignupComponentProps> = ({ showLogin }) => {
   return (
     <>
       <Box>
         <Heading textAlign="center" size="xl" fontWeight="extrabold">
-          Sign in to your account
+          Create your account
         </Heading>
         <Text
           mt="4"
@@ -21,18 +21,18 @@ export const LoginComponent: FC<LoginComponentProps> = ({ showLogin }) => {
           maxW="md"
           fontWeight="medium"
         >
-          <Text as="span">Don&apos;t have an account? </Text>
+          <Text as="span">Already have an account? </Text>
           <Text
             as="span"
             cursor="pointer"
             textDecoration="underline"
-            onClick={() => showLogin(false)}
+            onClick={() => showLogin(true)}
           >
-            Sign up!
+            Sign in here!
           </Text>
         </Text>
       </Box>
-      <LoginCard />
+      <SignupCard />
     </>
   );
 };
