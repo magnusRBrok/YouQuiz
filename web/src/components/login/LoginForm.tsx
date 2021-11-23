@@ -5,24 +5,22 @@ import {
   FormLabel,
 } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Box, Flex, Stack } from "@chakra-ui/layout";
+import { Flex, Stack } from "@chakra-ui/layout";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useColorModeValue as mode } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import {tokenStore} from "../stores/TokenStore";
+import { tokenStore } from "../stores/TokenStore";
 
 const LoginForm: FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data: any) => {
     const { email, password } = data;
-    tokenStore.login(email, password)
+    tokenStore.login(email, password);
     console.log(email, password);
   };
 
@@ -50,14 +48,14 @@ const LoginForm: FC = () => {
         <FormControl isInvalid={errors.password}>
           <Flex justify="space-between">
             <FormLabel htmlFor="password">Password</FormLabel>
-            <Box
+            {/* <Box
               as="a"
               color={mode("blue.600", "blue.200")}
               fontWeight="semibold"
               fontSize="sm"
             >
               Forgot Password?
-            </Box>
+            </Box> */}
           </Flex>
           <InputGroup>
             <InputRightElement>

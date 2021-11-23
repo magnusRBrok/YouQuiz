@@ -19,7 +19,7 @@ export const LoginCard: FC = () => {
             color="currentColor"
             variant="outline"
           >
-            Login with Google
+            Google
           </Button>
         </SimpleGrid>
       </Box>

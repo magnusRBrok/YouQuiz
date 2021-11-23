@@ -1,9 +1,12 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
-import { Link } from "react-router-dom";
 import { FC } from "react";
 import { LoginCard } from "./LoginCard";
 
-export const LoginComponent: FC = () => {
+interface LoginComponentProps {
+  showLogin: (showLogin: boolean) => void;
+}
+
+export const LoginComponent: FC<LoginComponentProps> = ({ showLogin }) => {
   return (
     <>
       <Box>
@@ -19,7 +22,14 @@ export const LoginComponent: FC = () => {
           fontWeight="medium"
         >
           <Text as="span">Don&apos;t have an account? </Text>
-          <Link to={"/signup"}>Sign up!</Link>
+          <Text
+            as="span"
+            cursor="pointer"
+            textDecoration="underline"
+            onClick={() => showLogin(false)}
+          >
+            Sign up!
+          </Text>
         </Text>
       </Box>
       <LoginCard />
