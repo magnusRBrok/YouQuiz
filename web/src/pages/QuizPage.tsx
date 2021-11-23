@@ -1,3 +1,4 @@
+import { Heading } from '@chakra-ui/layout';
 import { FC } from 'react';
 import { useParams } from 'react-router';
 import BasicLayout from '../components/layouts/basicLayout';
@@ -16,10 +17,13 @@ const QuizPage: FC = () => {
   // If no parameter is given in the URL quizId will be undefined
   const { quizId } = useParams<QuizPageProps>();
   console.log("quizId", quizId)
+  const quiz = QuizStore.getQuiz(Number(quizId)); 
 
   return (
     <BasicLayout>
-      <QuizComponent />
+      {quiz? <QuizComponent quiz={quiz}  /> : 
+      <Heading>No quiz with id {quizId} ;-(</Heading>}
+      
     </BasicLayout>
    
   );

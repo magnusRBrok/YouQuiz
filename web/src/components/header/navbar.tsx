@@ -9,7 +9,7 @@ const NavBar: FC = ({ children }) => {
             <HStack spacing={5}>
                 {/* TODO: Actual navigation links */}
                 <Link to={"/"} ><Text>Home</Text></Link>
-                <Link to={"/quiz"}><Text>Start Quiz</Text></Link>
+                <Link to={"/quiz/1"}><Text>Start Quiz</Text></Link>
                 {/* <Link>Link</Link> */}
             </HStack>
         </nav>
