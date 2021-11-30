@@ -3,6 +3,7 @@ import { AuthBase, ClientBase } from "../clientBase";
 
 export interface IQuizClient {
   getQuiz: (id: number) => Promise<Quiz>;
+  getAllQuizzes: () => Promise<Quiz[]>;
   createQuiz: (quiz: Quiz) => Promise<Quiz>;
   updateQuiz: (id: number, quiz: Quiz) => Promise<Quiz>;
   deleteQuiz: (id: number) => Promise<void>;
