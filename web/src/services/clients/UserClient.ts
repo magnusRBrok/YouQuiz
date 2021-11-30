@@ -1,11 +1,14 @@
-import { User } from "../../model/user";
+import { UserModel } from "../../model/user";
 import { AuthBase, ClientBase } from "../clientBase";
 
 export interface IUserClient {
-  getUser: (id: number) => Promise<User>;
-  createUser: (user: User) => Promise<User>;
-  updateUser: (id: number, user: User) => Promise<User>;
+  getUser: (id: number) => Promise<UserModel>;
+  createUser: (user: UserModel) => Promise<UserModel>;
+  updateUser: (id: number, user: UserModel) => Promise<UserModel>;
   deleteUser: (id: number) => Promise<void>;
+  login: (email: string, password: string) => Promise<string>;
+  logout: () => Promise<void>;
+  checkAuth: () => Promise<string>;
 }
 
 export class UserClient extends ClientBase implements IUserClient {
@@ -20,7 +23,22 @@ export class UserClient extends ClientBase implements IUserClient {
         : process.env.REACT_APP_API_URL;
   }
 
-  getUser = async (id: number): Promise<User> => {
+  login = async (email: string, password: string): Promise<string> => {
+    //TODO
+    return "token";
+  };
+
+  logout = async (): Promise<void> => {
+    //TODO
+    return;
+  };
+
+  checkAuth = async (): Promise<string> => {
+    //TODO
+    return "token";
+  };
+
+  getUser = async (id: number): Promise<UserModel> => {
     const url = `${this.baseUrl}/rest/user/${id}`;
     const options: RequestInit = {};
 
@@ -33,7 +51,7 @@ export class UserClient extends ClientBase implements IUserClient {
     );
   };
 
-  createUser = async (user: User): Promise<User> => {
+  createUser = async (user: UserModel): Promise<UserModel> => {
     const url = `${this.baseUrl}/rest/user`;
     const options: RequestInit = {
       method: "POST",
@@ -52,7 +70,7 @@ export class UserClient extends ClientBase implements IUserClient {
     );
   };
 
-  updateUser = async (id: number, user: User): Promise<User> => {
+  updateUser = async (id: number, user: UserModel): Promise<UserModel> => {
     const url = `${this.baseUrl}/rest/user`;
     const options: RequestInit = {
       method: "PUT",

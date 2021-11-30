@@ -1,6 +1,6 @@
 import { Quiz } from "./quiz";
 
-export type User = {
+export type UserModel = {
   id: number;
   first_name: string;
   quizzes?: Quiz[];

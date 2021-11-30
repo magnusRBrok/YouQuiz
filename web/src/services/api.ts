@@ -7,8 +7,7 @@ type BaseConstructor<T> = {
 export const api = async <T, U extends BaseConstructor<T>>(
   Client: U
 ): Promise<T> => {
-  //TODO here we should get the current users authToken instead of empty string
-  //TODO here we should also configure the URL string so it matches our server-backend url
-  const authToken = "";
+  // get access token from local storage, defaults to empty string if local storage is empty
+  const authToken = localStorage.getItem("access_token") ?? "";
   return new Client(new AuthBase(authToken), process.env.REACT_APP_API_URL);
 };

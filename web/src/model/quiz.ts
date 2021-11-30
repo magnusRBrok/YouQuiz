@@ -1,12 +1,12 @@
 import { Question } from "./question";
-import { User } from "./user";
+import { UserModel } from "./user";
 
 export type Quiz = {
   id: number;
   title?: string;
   category?: string;
   description?: string;
-  createdBy?: User; // user ID
+  createdBy?: UserModel; // user ID
   createdById: number;
   questions: Question[];
 };
