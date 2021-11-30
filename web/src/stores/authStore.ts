@@ -14,8 +14,6 @@ export class AuthStoreImpl {
     this.checkAuth().then((res) => {
       this.authenticated = res;
 
-      console.log("check", this.authenticated);
-
       // if existing access-token then we check if its valid
       if (this.authenticated) {
         UserStore.setUser({ first_name: "Bund", id: 1 });
