@@ -9,7 +9,9 @@ import { Flex, Stack } from "@chakra-ui/layout";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import { tokenStore } from "../stores/TokenStore";
+import { AuthStore } from "../../stores/authStore";
+import { useHistory } from "react-router-dom";
+import { useToast } from "@chakra-ui/toast";
 
 const LoginForm: FC = () => {
   const {
@@ -18,10 +20,24 @@ const LoginForm: FC = () => {
     formState: { errors },
   } = useForm();
 
+  const history = useHistory();
+
+  const toast = useToast();
+
   const onSubmit = (data: any) => {
     const { email, password } = data;
-    tokenStore.login(email, password);
-    console.log(email, password);
+
+    AuthStore.login(email, password)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => {
+        toast({
+          title: `${err}`,
+          status: "error",
+          isClosable: true,
+        });
+      });
   };
 
   const [revealPassword, setRevealPassword] = useState(false);
