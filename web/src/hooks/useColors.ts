@@ -7,6 +7,8 @@ export const useColors = () => {
   const optionCorrect = useColorModeValue("green.400", "green.600");
   const optionIncorrect = useColorModeValue("red.400", "red.600");
   const primaryColorHover = useColorModeValue("blue.100", "blue.700");
+  const quizItemBg = useColorModeValue("white", "blue.900");
+  const quizItemBgHover = useColorModeValue("blue.100", "blue.700");
 
   return {
     headerBg,
@@ -15,5 +17,7 @@ export const useColors = () => {
     optionCorrect,
     optionIncorrect,
     primaryColorHover,
+    quizItemBg,
+    quizItemBgHover,
   };
 };

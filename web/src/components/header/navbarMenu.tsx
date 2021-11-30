@@ -7,12 +7,17 @@ import { Link } from "react-router-dom";
 const NavbarMenu: FC = ({ children }) => {
   return (
     <Menu>
-      <MenuButton icon={<HamburgerIcon />} as={IconButton} variant="outline" />
+      <MenuButton
+        icon={<HamburgerIcon />}
+        as={IconButton}
+        rounded="full"
+        size="sm"
+      />
       <MenuList>
         <Link to="/login">
-        <MenuItem>
-          <>Login</>
-        </MenuItem>
+          <MenuItem>
+            <>Login</>
+          </MenuItem>
         </Link>
       </MenuList>
     </Menu>

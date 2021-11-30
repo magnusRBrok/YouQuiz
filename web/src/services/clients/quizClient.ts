@@ -71,6 +71,40 @@ export class QuizClient extends ClientBase implements IQuizClient {
     );
   };
 
+  createRandomQuiz = async (
+    title: String,
+    description?: string,
+    limit?: number,
+    category?: string,
+    difficulty?: string
+  ): Promise<number> => {
+    const url = `${this.baseUrl}/rest/quiz/random`;
+    const options: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        questionLimit: limit,
+        category: category,
+        difficulty: difficulty,
+      }),
+    };
+    return (
+      this.transformOptions(options)
+        .then((transformedOptions_) => fetch(url, transformedOptions_))
+        .then((response: Response) => this.processResponse(response))
+        .catch((e) => {
+          console.log("ERROR", e);
+          throw e;
+        })
+        // TODO handle the returned JSON object in next chain
+        .then()
+    );
+  };
+
   updateQuiz = async (id: number, quiz: Quiz): Promise<Quiz> => {
     const url = `${this.baseUrl}/rest/quiz`;
     const options: RequestInit = {

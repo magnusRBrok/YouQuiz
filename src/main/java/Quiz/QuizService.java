@@ -2,29 +2,31 @@ package Quiz;
 
 import Quiz.dao.IQuizDAO;
 import Quiz.dao.QuizDaoImpl;
+import Quiz.dto.CreateRandomQuizDto;
 import Quiz.dto.QuizDto;
 import Quiz.dto.QuizIdDto;
-import Quiz.model.Question;
 import Quiz.model.Quiz;
-import User.DBUser;
+import QuizAPIClient.IQuizAPIClient;
+import QuizAPIClient.QuizAPIClient;
+import QuizAPIClient.QuizApiQuestionDto;
 import User.dao.IUserDAO;
 import User.dao.UserDAOImpl;
 import Util.DTOUtil;
+import Util.QuizAPIUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.Hibernate;
 
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.List;
 
 @Path("quiz")
 public class QuizService {
 
     private IQuizDAO quizDAO = new QuizDaoImpl();
     private IUserDAO userDAO = new UserDAOImpl();
+    private IQuizAPIClient quizAPIClient = new QuizAPIClient();
 
     @GET
     @Path("{id}")
@@ -54,6 +56,23 @@ public class QuizService {
         int id = quizDAO.addQuiz(quiz, -1);
 
         return Response.status(Response.Status.CREATED).entity(id).build();
+    }
+
+    @POST
+    @Path("random")
+    @Consumes("application/json")
+    public Response createRandomQuiz(CreateRandomQuizDto dto){
+        try {
+            List<QuizApiQuestionDto> apiQuestions = quizAPIClient.getQuiz(dto.getQuestionLimit(), dto.getCategory(), dto.getDifficulty());
+            Quiz quiz = QuizAPIUtil.convertQuiz(apiQuestions);
+            quiz.setTitle(dto.getTitle());
+            quiz.setCategory(dto.getCategory().getCategory());
+            quiz.setDescription(dto.getDescription());
+            int id = quizDAO.addQuiz(quiz, -1);
+            return Response.status(Response.Status.CREATED).entity(id).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+        }
     }
 
     @PUT
