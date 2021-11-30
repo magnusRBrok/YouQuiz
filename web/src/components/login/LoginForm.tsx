@@ -6,10 +6,10 @@ import {
 } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Flex, Stack } from "@chakra-ui/layout";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import { tokenStore } from "../stores/TokenStore";
+import { StoreContext } from "../../contexts/AuthContext";
 
 const LoginForm: FC = () => {
   const {
@@ -18,10 +18,12 @@ const LoginForm: FC = () => {
     formState: { errors },
   } = useForm();
 
+  const { authStore } = useContext(StoreContext);
+
   const onSubmit = (data: any) => {
     const { email, password } = data;
-    tokenStore.login(email, password);
-    console.log(email, password);
+
+    authStore.login(email, password);
   };
 
   const [revealPassword, setRevealPassword] = useState(false);

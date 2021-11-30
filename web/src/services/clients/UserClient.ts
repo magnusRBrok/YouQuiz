@@ -6,6 +6,9 @@ export interface IUserClient {
   createUser: (user: User) => Promise<User>;
   updateUser: (id: number, user: User) => Promise<User>;
   deleteUser: (id: number) => Promise<void>;
+  login: (email: string, password: string) => Promise<string>;
+  logout: () => Promise<void>;
+  checkAuth: () => Promise<string>;
 }
 
 export class UserClient extends ClientBase implements IUserClient {
@@ -19,6 +22,18 @@ export class UserClient extends ClientBase implements IUserClient {
         ? baseUrl
         : process.env.REACT_APP_API_URL;
   }
+
+  login = async (email: string, password: string): Promise<string> => {
+    return "tokenblabla";
+  };
+
+  logout = async (): Promise<void> => {
+    return;
+  };
+
+  checkAuth = async (): Promise<string> => {
+    return "tokenblabla";
+  };
 
   getUser = async (id: number): Promise<User> => {
     const url = `${this.baseUrl}/rest/user/${id}`;
